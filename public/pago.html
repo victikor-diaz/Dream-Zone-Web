@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pago — Dream Zone</title>
+  <meta name="description" content="Paga tu pedido de Dream Zone con Wompi: tarjeta, PSE, Nequi, Daviplata y más.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Silkscreen:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css?v=20261028">
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="js/progress.js?v=20261018" defer></script>
+  <script src="js/pago.js?v=20261028" defer></script>
+</head>
+<body>
+
+<a class="skip" href="#panel">Saltar al formulario de pago</a>
+
+<header class="bar">
+  <a class="bar__brand" href="/" aria-label="Dream Zone, volver al archivo">
+    <img src="assets/img/dz-logo-dark-360.png" width="360" height="195" alt="">
+    <span>Dream Zone</span>
+  </a>
+  <p class="bar__issue">Pago seguro · Wompi</p>
+  <a class="bar__back link mono" href="/#indice">← Seguir explorando</a>
+</header>
+
+<main class="acct pay" id="main">
+  <!-- ============ RESUMEN DEL PEDIDO ============ -->
+  <section class="acct__intro pay__intro" aria-labelledby="pay-title">
+    <p class="acct__kicker mono" id="pay-kicker">Carrito → pago</p>
+    <h1 class="acct__title pay__title" id="pay-title">Último paso antes de que salgan del <em class="echo" data-text="archivo">archivo</em>.</h1>
+    <p class="acct__lead" id="pay-lead">Revisa tu pedido, dinos cómo te lo entregamos y paga en la página segura de Wompi.</p>
+
+    <div class="receipt" id="receipt" aria-live="polite">
+      <div class="receipt__head mono"><span id="receipt-kicker">Tu pedido</span><span id="receipt-count">—</span></div>
+      <ol class="receipt__lines" id="receipt-lines">
+        <li class="receipt__empty mono">&gt; cargando tu carrito<span class="cursor" aria-hidden="true"></span></li>
+      </ol>
+      <dl class="receipt__totals" id="receipt-totals"></dl>
+      <p class="receipt__perk mono" id="receipt-perk" hidden></p>
+      <p class="receipt__seal"><span class="stamp mono receipt__stamp" id="receipt-stamp" aria-hidden="true" hidden></span></p>
+    </div>
+  </section>
+
+  <!-- ============ DATOS, ENTREGA Y PAGO ============ -->
+  <section class="acct__panel pay__panel" id="panel" aria-label="Datos del pago">
+    <form class="ficha pay__form" id="pay-form" novalidate hidden>
+      <div class="ficha__head mono"><span>01 · Quién compra</span><span>ficha de pago</span></div>
+      <label class="ficha__field">
+        <span class="mono">Nombre completo</span>
+        <input name="name" type="text" autocomplete="name" maxlength="80" required>
+      </label>
+      <label class="ficha__field">
+        <span class="mono">Correo · aquí llega la confirmación</span>
+        <input name="email" type="email" autocomplete="email" maxlength="254" required>
+      </label>
+      <label class="ficha__field">
+        <span class="mono">Celular</span>
+        <input name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="14" placeholder="300 123 4567" required>
+      </label>
+      <div class="pay__row">
+        <label class="ficha__field">
+          <span class="mono">Documento</span>
+          <select name="idType" required>
+            <option value="CC">Cédula de ciudadanía</option>
+            <option value="CE">Cédula de extranjería</option>
+            <option value="NIT">NIT</option>
+            <option value="PP">Pasaporte</option>
+            <option value="TI">Tarjeta de identidad</option>
+          </select>
+        </label>
+        <label class="ficha__field">
+          <span class="mono">Número</span>
+          <input name="idNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="15" required>
+        </label>
+      </div>
+
+      <div class="ficha__head pay__sep mono"><span>02 · Entrega</span><span id="pay-times-head"></span></div>
+      <div class="pay__opts" role="radiogroup" aria-label="Forma de entrega">
+        <label class="pay__opt">
+          <input type="radio" name="method" value="envio" checked>
+          <span class="pay__opt-name">Envío a domicilio</span>
+          <span class="pay__opt-meta mono" id="opt-envio">—</span>
+        </label>
+        <label class="pay__opt">
+          <input type="radio" name="method" value="tienda">
+          <span class="pay__opt-name">Recoger en la tienda</span>
+          <span class="pay__opt-meta mono" id="opt-tienda">Gratis</span>
+        </label>
+      </div>
+      <div id="pay-address">
+        <div class="pay__row">
+          <label class="ficha__field">
+            <span class="mono">Departamento</span>
+            <select name="region" autocomplete="address-level1" required>
+              <option value="">Elige…</option>
+            </select>
+          </label>
+          <label class="ficha__field">
+            <span class="mono">Ciudad o municipio</span>
+            <select name="city" autocomplete="address-level2" required disabled>
+              <option value="">Primero el departamento</option>
+            </select>
+          </label>
+        </div>
+        <!-- con la ciudad escrita, las transportadoras cotizan en vivo (Envia.com) y quien compra elige -->
+        <div class="pay__carriers" id="pay-carriers" hidden>
+          <p class="pay__carriers-head mono" id="pay-carriers-head">Transportadora</p>
+          <div class="pay__carrier-list" id="pay-carrier-list" role="radiogroup" aria-labelledby="pay-carriers-head"></div>
+        </div>
+        <p class="ficha__note mono pay__ship-note" id="pay-ship-note" role="status" aria-live="polite" hidden></p>
+        <div class="pay__suggest" id="pay-suggest" hidden></div>
+        <label class="ficha__field">
+          <span class="mono">Dirección</span>
+          <input name="address" type="text" autocomplete="address-line1" maxlength="120" placeholder="Calle 26 # 13-19" required>
+        </label>
+        <label class="ficha__field">
+          <span class="mono">Apto, barrio, referencia · opcional</span>
+          <input name="details" type="text" autocomplete="address-line2" maxlength="120">
+        </label>
+        <p class="ficha__note mono" id="pay-times"></p>
+      </div>
+      <div id="pay-pickup" class="pay__pickup" hidden>
+        <p class="pay__pickup-where" id="pickup-where">—</p>
+        <p class="ficha__note mono" id="pickup-note"></p>
+      </div>
+      <label class="ficha__field">
+        <span class="mono">Nota para la curaduría · opcional</span>
+        <input name="notes" type="text" maxlength="280" placeholder="es un regalo, envuélvanlo bonito">
+      </label>
+      <label class="pay__remember mono"><input type="checkbox" name="remember" checked> Recordar estos datos en este navegador</label>
+      <label class="consent"><input type="checkbox" name="consent" required> <span>Leí y acepto la <a class="link" href="/privacidad" target="_blank" rel="noopener">política de tratamiento de datos</a>, y declaro que soy mayor de edad o que tengo la autorización de mi representante legal.</span></label>
+
+      <div class="ficha__foot pay__foot">
+        <button class="btn btn--block pay__go" type="submit" id="pay-go">Pagar con Wompi</button>
+      </div>
+      <p class="form-msg mono" id="pay-msg" role="status" aria-live="polite"></p>
+      <p class="pay__secure mono">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5z"/></svg>
+        <span>Pagas en la página segura de Wompi (Bancolombia): tarjeta, PSE, Nequi, Daviplata, botón y QR Bancolombia. Tus datos de pago nunca pasan por Dream Zone; los de entrega se tratan según la <a class="link" href="/privacidad" target="_blank" rel="noopener">política de tratamiento de datos</a>.</span>
+      </p>
+    </form>
+
+    <!-- carrito vacío · pagos sin configurar · abriendo Wompi · resultado del pago -->
+    <div class="pay__state" id="pay-state" hidden></div>
+  </section>
+</main>
+
+</body>
+</html>

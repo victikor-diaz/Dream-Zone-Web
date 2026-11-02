@@ -1,0 +1,28 @@
+{
+  "name": "dream-zone-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dream Zone — tienda geek. Frontend estático + API Node.js (Vercel Functions) + MongoDB.",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file-if-exists=.env scripts/dev.js",
+    "start": "node --env-file-if-exists=.env scripts/dev.js",
+    "seed": "node --env-file-if-exists=.env scripts/seed.js",
+    "seed:fresh": "node --env-file-if-exists=.env scripts/seed.js --fresh",
+    "check": "node --check scripts/dev.js && node --check scripts/seed.js && node --check scripts/make-admin.js && node --check scripts/xp.js && node --check scripts/simular-pago.js && node --check scripts/probar-correo.js && node --check scripts/conciliar-pagos.js && node --check scripts/cuentas-inactivas.js",
+    "admin": "node --env-file-if-exists=.env scripts/make-admin.js",
+    "xp": "node --env-file-if-exists=.env scripts/xp.js",
+    "pago:simular": "node --env-file-if-exists=.env scripts/simular-pago.js",
+    "correo:probar": "node --env-file-if-exists=.env scripts/probar-correo.js",
+    "pago:conciliar": "node --env-file-if-exists=.env scripts/conciliar-pagos.js",
+    "cuentas:inactivas": "node --env-file-if-exists=.env scripts/cuentas-inactivas.js"
+  },
+  "dependencies": {
+    "@vercel/functions": "^3.10.1",
+    "mongodb": "^7.7.0",
+    "nodemailer": "10.0.11"
+  }
+}

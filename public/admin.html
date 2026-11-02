@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curaduría — Dream Zone</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Silkscreen:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css?v=20261028">
+  <link rel="stylesheet" href="css/admin.css?v=20261018">
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="js/progress.js?v=20261018" defer></script>
+  <script src="js/photo.js?v=20261023" defer></script>
+  <script src="js/admin.js?v=20261018" defer></script>
+  <script src="js/admin-modules.js?v=20261018" defer></script>
+</head>
+<body class="cur-page">
+
+<!-- Sprite: copia de las ilustraciones de index.html (mantener sincronizadas) -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-dz" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="120" y2="120">
+      <stop offset="0" stop-color="#2E9BDA"/>
+      <stop offset=".55" stop-color="#2B6CB4"/>
+      <stop offset="1" stop-color="#4A47A3"/>
+    </linearGradient>
+  </defs>
+
+  <symbol id="i-mecha" viewBox="0 0 120 120">
+    <path d="M60 30 38 14M60 30l22-16"/>
+    <path d="M60 22l24 12v24l-8 22H44l-8-22V34z" style="fill:var(--ill-bg)"/>
+    <path d="M56 30l4-6 4 6M52 34h16v8H52z"/>
+    <path d="M42 50h36l-5 10H47z"/>
+    <path d="M50 55h6M64 55h6M54 68v6M60 68v6M66 68v6"/>
+    <path d="M36 40h-8v18h8M84 40h8v18h-8"/>
+    <path d="M50 80v14h20V80M54 87h12"/>
+  </symbol>
+  <symbol id="i-d20" viewBox="0 0 120 120">
+    <path d="M60 10l43 25v50l-43 25-43-25V35z" style="fill:var(--ill-bg)"/>
+    <path d="M60 30 30 80h60z"/>
+    <path d="M60 10v20M60 30l43 5M60 30 17 35M30 80 17 35M30 80 17 85M30 80l30 30M90 80l13-45M90 80l13 5M90 80l-30 30"/>
+    <text x="60" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="currentColor" stroke="none">20</text>
+  </symbol>
+  <symbol id="i-book" viewBox="0 0 120 120">
+    <path d="M84 18l8 6v84l-8-6M92 108H38l-8-6"/>
+    <path d="M30 18h54v84H30z" style="fill:var(--ill-bg)"/>
+    <path d="M38 28h38v12H38z"/>
+    <circle cx="57" cy="68" r="14"/>
+    <path d="M38 92h20M64 92h12M76 56l-6 4M78 68h-7M76 80l-6-4"/>
+  </symbol>
+  <symbol id="i-pad" viewBox="0 0 120 120">
+    <path d="M34 44h52a24 24 0 0 1 24 24v6a16 16 0 0 1-29 9l-7-9H46l-7 9a16 16 0 0 1-29-9v-6a24 24 0 0 1 24-24z" style="fill:var(--ill-bg)"/>
+    <path d="M28 64h16M36 56v16M54 60h4M62 60h4"/>
+    <circle cx="84" cy="60" r="3.5"/>
+    <circle cx="92" cy="68" r="3.5"/>
+    <path d="M50 32q10-10 20 0M43 25q17-17 34 0"/>
+  </symbol>
+  <symbol id="i-cards" viewBox="0 0 120 120">
+    <rect x="28" y="26" width="46" height="66" rx="3" transform="rotate(-14 51 59)" style="fill:var(--ill-bg)"/>
+    <rect x="38" y="22" width="46" height="66" rx="3" style="fill:var(--ill-bg)"/>
+    <g transform="rotate(10 71 63)">
+      <rect x="48" y="30" width="46" height="66" rx="3" style="fill:var(--ill-bg)"/>
+      <path d="M54 37h34v26H54zM54 70h34M54 77h22M54 84h28"/>
+      <path d="M71 42l6 8-6 8-6-8z"/>
+    </g>
+  </symbol>
+  <symbol id="i-helmet" viewBox="0 0 120 120">
+    <path d="M26 82V62a34 34 0 0 1 68 0v20q0 14-14 14H40q-14 0-14-14z" style="fill:var(--ill-bg)"/>
+    <path d="M36 62a24 20 0 0 1 48 0v4q0 8-8 8H44q-8 0-8-8z"/>
+    <path d="M60 28v-8M26 84h-6V68h6M94 84h6V68h-6M44 86h32M50 92h20M43 57q5-9 15-11"/>
+  </symbol>
+  <symbol id="i-cart" viewBox="0 0 120 120">
+    <path d="M30 16h60v76l-8 10H38l-8-10z" style="fill:var(--ill-bg)"/>
+    <path d="M38 26h44v40H38zM44 76h32v8H44zM42 102v8M50 102v8M58 102v8M66 102v8M74 102v8"/>
+    <text x="60" y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="currentColor" stroke="none">DQ</text>
+  </symbol>
+  <symbol id="i-shirt" viewBox="0 0 120 120">
+    <path d="M44 20 20 32l8 20 10-4v54h44V48l10 4 8-20-24-12q-4 10-16 10T44 20z" style="fill:var(--ill-bg)"/>
+    <path d="M38 48v-8M82 48v-8"/>
+    <text x="60" y="74" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="currentColor" stroke="none">DZ</text>
+  </symbol>
+  <symbol id="i-meeple" viewBox="0 0 120 120">
+    <circle cx="50" cy="32" r="11"/>
+    <path d="M42 45q-24 3-28 13 0 6 14 6l-8 32h22l8-14 8 14h22l-8-32q14 0 14-6-4-10-28-13z" style="fill:var(--ill-bg)"/>
+    <g transform="rotate(12 89 81)">
+      <rect x="74" y="66" width="30" height="30" rx="4" style="fill:var(--ill-bg)"/>
+      <circle cx="82" cy="74" r="2.5" fill="currentColor" stroke="none"/>
+      <circle cx="89" cy="81" r="2.5" fill="currentColor" stroke="none"/>
+      <circle cx="96" cy="88" r="2.5" fill="currentColor" stroke="none"/>
+    </g>
+  </symbol>
+  <symbol id="i-cap" viewBox="0 0 120 120">
+    <path d="M16 80q0-48 46-48 36 0 40 48z" style="fill:var(--ill-bg)"/>
+    <path d="M14 80h88v10H14z" style="fill:var(--ill-bg)"/>
+    <path d="M96 80h14q10 0 10 5t-10 5H96z" style="fill:var(--ill-bg)"/>
+    <circle cx="60" cy="29" r="3.5"/>
+    <path d="M60 33q-14 18-12 47M60 33q16 16 18 47M28 60q4-12 13-18"/>
+    <text x="63" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="currentColor" stroke="none">DZ</text>
+  </symbol>
+  <symbol id="i-wallet" viewBox="0 0 120 120">
+    <g transform="rotate(-12 60 32)">
+      <rect x="34" y="14" width="52" height="34" rx="3" style="fill:var(--ill-bg)"/>
+      <path d="M41 23h24M41 30h14"/>
+    </g>
+    <rect x="14" y="38" width="88" height="60" rx="8" style="fill:var(--ill-bg)"/>
+    <path d="M22 48h44M22 88h44" style="stroke-dasharray:3 4"/>
+    <rect x="70" y="54" width="38" height="28" rx="6" style="fill:var(--ill-bg)"/>
+    <circle cx="82" cy="68" r="4"/>
+  </symbol>
+  <symbol id="i-bag" viewBox="0 0 120 120">
+    <path d="M38 48V32a22 22 0 0 1 44 0v16M46 48V34a14 14 0 0 1 28 0v14"/>
+    <path d="M22 46h76l-7 64H29z" style="fill:var(--ill-bg)"/>
+    <path d="M30 58h60"/>
+    <text x="60" y="88" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="600" fill="currentColor" stroke="none">DZ</text>
+  </symbol>
+
+  <symbol id="u-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="u-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+</svg>
+
+<a class="skip" href="#editor">Saltar al editor</a>
+
+<header class="bar">
+  <a class="bar__brand" href="/" aria-label="Dream Zone, ir a la tienda">
+    <img src="assets/img/dz-logo-dark-360.png" width="360" height="195" alt="">
+    <span>Dream Zone</span>
+  </a>
+  <p class="bar__issue">Curaduría · <span id="cur-user">—</span></p>
+  <nav class="bar__nav" aria-label="Curaduría">
+    <a href="/" target="_blank" rel="noopener">Ver tienda ↗</a>
+    <a href="/cuenta">Mi credencial</a>
+  </nav>
+  <button class="bar__cart" type="button" id="logout">Salir</button>
+</header>
+
+<!-- Módulos de la curaduría -->
+<nav class="adm-nav" id="adm-nav" aria-label="Módulos de la curaduría" hidden>
+  <a href="#piezas" data-tab="piezas"><span class="mono">01</span>Piezas</a>
+  <a href="#pagina" data-tab="pagina"><span class="mono">02</span>Página</a>
+  <a href="#drops" data-tab="drops"><span class="mono">03</span>Drops</a>
+  <a href="#pedidos" data-tab="pedidos"><span class="mono">04</span>Pedidos<sup class="adm-nav__badge mono" data-badge="pedidos" hidden></sup></a>
+  <a href="#buzon" data-tab="buzon"><span class="mono">05</span>Buzón<sup class="adm-nav__badge mono" data-badge="buzon" hidden></sup></a>
+  <a href="#equipo" data-tab="equipo"><span class="mono">06</span>Equipo</a>
+</nav>
+
+<!-- Sin permisos -->
+<section class="gate" id="gate" hidden aria-labelledby="gate-title">
+  <p class="px gate__code">acceso 403 · zona restringida</p>
+  <h1 class="gate__title" id="gate-title">Esta sala es solo para la <em class="echo" data-text="curaduría">curaduría</em>.</h1>
+  <p class="gate__text" id="gate-text">Tu credencial no tiene permisos de administración.</p>
+  <p class="mono muted gate__how">Pide a alguien de la curaduría que te dé acceso desde el módulo Equipo, o en la carpeta del proyecto: <code>npm run admin -- correo@ejemplo.com</code></p>
+  <div class="profile__actions"><a class="btn" href="/">Volver a la tienda →</a><a class="link mono" href="/cuenta">Cambiar de cuenta</a></div>
+</section>
+
+<div class="cur adm-view" id="cur" data-view="piezas" hidden>
+
+  <!-- ============ ÍNDICE DE PIEZAS ============ -->
+  <aside class="cur__side" aria-labelledby="side-title">
+    <header class="cur__head">
+      <h1 class="cur__title" id="side-title">Piezas<sup class="mono" id="cur-total">—</sup></h1>
+      <button class="btn cur__new" type="button" id="new-product">+ Nueva</button>
+    </header>
+    <label class="finder cur__finder">
+      <span class="mono">Buscar</span>
+      <input id="cur-search" type="search" placeholder="nombre, sku, zona…" autocomplete="off">
+      <kbd aria-hidden="true">/</kbd>
+    </label>
+    <div class="chips cur__filters" role="group" aria-label="Filtrar por estado">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">Todas <sup data-sc="all">0</sup></button>
+      <button class="chip" type="button" data-filter="active" data-status="active" aria-pressed="false">Activas <sup data-sc="active">0</sup></button>
+      <button class="chip" type="button" data-filter="draft" data-status="draft" aria-pressed="false">Borradores <sup data-sc="draft">0</sup></button>
+      <button class="chip" type="button" data-filter="archived" data-status="archived" aria-pressed="false">Archivadas <sup data-sc="archived">0</sup></button>
+    </div>
+    <ol class="cur__list" id="cur-list" aria-label="Piezas del catálogo"></ol>
+    <p class="list-status mono muted" id="cur-status" role="status">&gt; cargando piezas<span class="cursor" aria-hidden="true"></span></p>
+  </aside>
+
+  <!-- ============ EDITOR ============ -->
+  <section class="cur__main" id="editor" aria-label="Editor de la pieza">
+    <div class="cur__empty" id="cur-empty">
+      <p class="mono muted">Ninguna pieza abierta</p>
+      <h2 class="cur__empty-title">Elige una pieza del índice o crea una <em class="echo" data-text="nueva">nueva</em>.</h2>
+      <p class="mono muted">Atajos: <kbd data-save-key>Ctrl S</kbd> guardar · <kbd>N</kbd> nueva pieza · <kbd>/</kbd> buscar · <kbd>Esc</kbd> cerrar</p>
+    </div>
+
+    <form class="ed" id="ed" novalidate hidden>
+      <header class="ed__bar">
+        <button class="ed__back mono" type="button" id="ed-back">← Piezas</button>
+        <div class="ed__id">
+          <p class="mono" id="ed-kicker">Entrada nº —</p>
+          <p class="ed__name" id="ed-title">—</p>
+        </div>
+        <p class="ed__state mono" id="ed-state" role="status" aria-live="polite"></p>
+        <div class="ed__actions">
+          <button class="btn btn--ghost" type="button" id="ed-discard">Descartar</button>
+          <button class="btn" type="submit" id="ed-save">Guardar <kbd data-save-key>Ctrl S</kbd></button>
+        </div>
+      </header>
+
+      <div class="ed__body">
+        <div class="ed__form">
+
+          <fieldset class="fs">
+            <legend><span class="mono">01</span>Identidad</legend>
+            <div class="fs__grid">
+              <label class="fld fld--wide"><span>Nombre</span><input class="fld__big" name="name" type="text" maxlength="80" required></label>
+              <label class="fld fld--wide"><span>Formato · aparece bajo el nombre</span><input name="subtitle" type="text" maxlength="80" placeholder="Figura · Esc. 1/100" required></label>
+              <div class="fld fld--wide"><span class="fld__label" id="lbl-zone">Zona</span><div class="chips chips--zone" role="radiogroup" aria-labelledby="lbl-zone" id="opt-category"></div></div>
+              <label class="fld"><span>Identificador (slug)</span><input class="mono" name="slug" type="text" maxlength="80" required spellcheck="false" autocomplete="off"></label>
+              <label class="fld"><span>SKU</span><input class="mono" name="sku" type="text" maxlength="24" required spellcheck="false" autocomplete="off"></label>
+              <p class="fld__hint fld--wide mono" id="slug-hint">El slug identifica la pieza en el carrito y en los drops: solo minúsculas, números y guiones.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="mono">02</span>Precio y etiqueta</legend>
+            <div class="fs__grid">
+              <label class="fld"><span>Precio</span><span class="money"><i>$</i><input name="price" type="text" inputmode="decimal" placeholder="59.900" required autocomplete="off"></span></label>
+              <label class="fld"><span>Antes · opcional, se tacha</span><span class="money"><i>$</i><input name="compareAt" type="text" inputmode="decimal" placeholder="—" autocomplete="off"></span></label>
+              <div class="fld fld--wide"><span class="fld__label" id="lbl-badge">Etiqueta en el índice</span><div class="chips" role="radiogroup" aria-labelledby="lbl-badge" id="opt-badge"></div></div>
+              <p class="fld__hint fld--wide mono" id="badge-hint" hidden></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="mono">03</span>Existencias</legend>
+            <div class="fs__grid">
+              <label class="toggle fld--wide"><input name="hasSizes" type="checkbox"><span class="toggle__ui" aria-hidden="true"></span><span>Se vende por tallas (camisas, gorras…): quien compra elige la suya</span></label>
+              <label class="fld"><span id="stock-label">Unidades en stock</span><input name="stock" type="number" min="0" max="100000" step="1" inputmode="numeric" required></label>
+              <div class="fld fld--wide sizes-ed" id="sizes-ed" hidden>
+                <span class="fld__label">Unidades por talla · deja vacía la talla que no manejas</span>
+                <div class="sizes-ed__grid" id="sizes-grid"></div>
+              </div>
+              <p class="fld__hint fld--wide mono" id="stock-hint">Con 0 unidades la pieza se muestra agotada. Para venderla junto con otras más barata, créale un drop.</p>
+              <label class="fld"><span>Peso de la pieza (g) · opcional</span><input name="weight" type="number" min="1" max="50000" step="1" inputmode="numeric" placeholder="400"></label>
+              <p class="fld__hint fld--wide mono">Con él se cotiza el envío con Interrapidísimo (el empaque no se cuenta). Vacío: el peso por pieza de Página › Pago y envíos.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="mono">04</span>Ficha del visor</legend>
+            <div class="fs__grid">
+              <div class="fld fld--wide"><span class="fld__label" id="lbl-rarity">Rareza</span><div class="rarity" role="radiogroup" aria-labelledby="lbl-rarity" id="opt-rarity"></div></div>
+              <div class="fld fld--wide"><span class="fld__label" id="lbl-tone">Color de la pieza · tiñe su fila, el visor y el eco</span><div class="swatches" role="radiogroup" aria-labelledby="lbl-tone" id="opt-tone"></div></div>
+              <div class="fld fld--wide"><span class="fld__label" id="lbl-icon">Ilustración · se usa cuando la pieza no tiene fotos</span><div class="icons" role="radiogroup" aria-labelledby="lbl-icon" id="opt-icon"></div></div>
+              <label class="fld fld--wide"><span>Lore · texto de carta (<b id="lore-count">0</b>/280)</span><textarea name="lore" rows="3" maxlength="280" placeholder="Una frase con personalidad para el visor."></textarea></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="mono">05</span>Imágenes</legend>
+            <div class="fs__grid">
+              <div class="drop fld--wide" id="dropzone">
+                <input class="sr-only" id="file" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+                <label class="drop__label" for="file"><b>Suelta fotos aquí</b> o <u>elige archivos</u></label>
+                <p class="mono muted">JPG, PNG o WebP · hasta 8 por pieza · tu navegador las recorta al contorno de la pieza (quita el margen vacío o el fondo liso), les deja el mismo aire y las lleva a ≤ 1600 px, para que todas se vean del mismo tamaño. Un PNG recortado (fondo transparente) se ve con eco de color.</p>
+              </div>
+              <ol class="thumbs fld--wide" id="thumbs" aria-label="Imágenes de la pieza"></ol>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="mono">06</span>Publicación</legend>
+            <div class="fs__grid">
+              <div class="fld fld--wide"><span class="fld__label" id="lbl-status">Estado</span><div class="chips" role="radiogroup" aria-labelledby="lbl-status" id="opt-status"></div></div>
+              <label class="fld"><span>Fecha de alta · ordena el índice</span><input name="createdAt" type="datetime-local"></label>
+              <p class="fld__hint mono" id="meta-line"></p>
+            </div>
+          </fieldset>
+
+          <div class="danger">
+            <button class="btn btn--ghost" type="button" id="ed-duplicate">Duplicar pieza</button>
+            <button class="btn btn--danger" type="button" id="ed-delete">Eliminar pieza</button>
+          </div>
+        </div>
+
+        <!-- Vista previa en vivo -->
+        <aside class="pv" aria-label="Vista previa">
+          <p class="pv__kicker mono">Vista previa · visor</p>
+          <div class="pv__card" id="pv-card">
+            <div class="pv__stage">
+              <svg class="pv__ill ill" viewBox="-6 -6 132 140" aria-hidden="true">
+                <use id="pv-sh" class="pv__sh" href="#i-mecha" width="120" height="120" transform="translate(-3 4)"/>
+                <use id="pv-ill" href="#i-mecha" width="120" height="120"/>
+              </svg>
+              <div class="pv__photo" id="pv-photo" hidden><span class="pv__photo-sh" aria-hidden="true"></span><img id="pv-img" alt=""></div>
+            </div>
+            <div class="pv__plate">
+              <p class="pv__entry mono" id="pv-entry">—</p>
+              <p class="pv__title" id="pv-title">—</p>
+              <p class="pv__lore" id="pv-lore" hidden></p>
+              <dl class="specs" id="pv-specs"></dl>
+              <div class="pv__buy"><p class="pv__price"><span id="pv-price">—</span> <s class="mono muted" id="pv-old"></s></p><span class="buy pv__btn" id="pv-btn">—</span></div>
+            </div>
+          </div>
+          <p class="pv__kicker mono">En el índice · normal y al pasar el cursor</p>
+          <ol class="list pv__rows" id="pv-rows" aria-hidden="true"></ol>
+        </aside>
+      </div>
+    </form>
+  </section>
+</div>
+
+<!-- ============ PÁGINA: textos, zonas y colores ============ -->
+<section class="pg adm-view" id="v-pagina" data-view="pagina" hidden aria-labelledby="pg-title">
+  <header class="ed__bar pg__bar">
+    <div class="ed__id">
+      <p class="mono" id="pg-meta">Textos, zonas y colores</p>
+      <h1 class="ed__name" id="pg-title">Página</h1>
+    </div>
+    <p class="ed__state mono" id="pg-state" role="status" aria-live="polite"></p>
+    <div class="ed__actions">
+      <button class="btn btn--ghost pg__pv-btn" type="button" id="pg-preview-btn" data-preview-toggle aria-pressed="false">Vista previa</button>
+      <button class="btn btn--ghost" type="button" id="pg-discard" disabled>Descartar</button>
+      <button class="btn" type="button" id="pg-save">Guardar <kbd data-save-key>Ctrl S</kbd></button>
+    </div>
+  </header>
+  <div class="pg__body">
+    <nav class="pg__toc" id="pg-toc" aria-label="Secciones de la página"></nav>
+    <form class="pg__form" id="pg-form" novalidate>
+      <p class="list-status mono muted">&gt; cargando los textos de la página<span class="cursor" aria-hidden="true"></span></p>
+    </form>
+    <aside class="pg__preview" aria-label="Vista previa en vivo">
+      <div class="pg__pv-head">
+        <p class="mono"><span class="pg__live" aria-hidden="true"></span>En vivo · sin guardar</p>
+        <div class="chips" role="group" aria-label="Tamaño de la vista previa">
+          <button class="chip" type="button" data-device="desktop" aria-pressed="true">Escritorio</button>
+          <button class="chip" type="button" data-device="mobile" aria-pressed="false">Móvil</button>
+          <button class="chip pg__pv-close" type="button" data-preview-toggle>Cerrar ×</button>
+        </div>
+      </div>
+      <div class="pg__frame" id="pg-frame"><iframe id="pg-iframe" title="Vista previa de la tienda con tus cambios"></iframe></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ DROPS (lo arma admin-modules.js) ============ -->
+<div class="cur adm-view adm-col" id="v-drops" data-view="drops" hidden></div>
+
+<!-- ============ BUZÓN ============ -->
+<!-- ============ PEDIDOS ============ -->
+<section class="adm-page adm-view" id="v-pedidos" data-view="pedidos" hidden aria-labelledby="pd-title">
+  <header class="adm-page__head">
+    <div>
+      <p class="adm-kicker mono">Pagos de la tienda con Wompi</p>
+      <h1 class="adm-title" id="pd-title">Pedidos</h1>
+    </div>
+    <div class="pd-head__actions">
+      <button class="btn" type="button" id="sala-open" aria-expanded="false" aria-controls="sala-xp">+ Compra en la sala</button>
+      <button class="btn btn--ghost" type="button" id="pd-refresh">Actualizar</button>
+    </div>
+  </header>
+  <!-- Compra en la sala física: sumar XP a una credencial y darle las gracias (lib/admin/sala.js) -->
+  <section class="sala-xp" id="sala-xp" hidden aria-label="Compra en la sala física">
+    <form class="ficha sala-xp__form" id="sala-form" novalidate>
+      <div class="ficha__head mono"><span>Compra en la sala · sumar XP</span><span>ficha S</span></div>
+      <label class="ficha__field">
+        <span class="mono">Correo de la credencial</span>
+        <input name="email" type="email" placeholder="cliente@correo.com" autocomplete="off" spellcheck="false" required>
+      </label>
+      <p class="sala-xp__who mono" id="sala-who" aria-live="polite">Pídele el correo con el que creó su credencial.</p>
+      <label class="ficha__field">
+        <span class="mono">Valor de la compra</span>
+        <input name="amount" type="text" inputmode="decimal" placeholder="$59.900" autocomplete="off" required>
+      </label>
+      <p class="sala-xp__xp mono" id="sala-xp-preview" aria-live="polite">Cada $1.000 suma 5 XP.</p>
+      <label class="ficha__field">
+        <span class="mono">Nota · opcional</span>
+        <input name="note" type="text" maxlength="120" placeholder="factura nº 123" autocomplete="off">
+      </label>
+      <!-- confirmación: nada se suma hasta revisar a quién, cuánto compró y cuánto XP le llega -->
+      <div class="sala-xp__confirm" id="sala-confirm" role="alertdialog" aria-labelledby="sala-confirm-title" aria-describedby="sala-confirm-text" tabindex="-1" hidden>
+        <p class="sala-xp__confirm-title mono" id="sala-confirm-title">¿Todo bien? Revisa antes de sumar</p>
+        <p class="sala-xp__confirm-text" id="sala-confirm-text"></p>
+        <div class="sala-xp__confirm-actions">
+          <button class="btn" type="button" id="sala-confirm-yes">Sí, sumar el XP</button>
+          <button class="btn btn--ghost" type="button" id="sala-confirm-no">Corregir</button>
+        </div>
+      </div>
+      <div class="ficha__foot">
+        <button class="btn" type="submit">Sumar XP y dar las gracias →</button>
+        <p class="form-msg mono" id="sala-msg" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+    <div class="sala-xp__log">
+      <h2 class="team__title">Últimas compras en la sala<sup class="mono" id="sala-count">—</sup></h2>
+      <ol class="sala-list" id="sala-list"></ol>
+      <p class="mono muted sala-xp__foot">El XP va a la credencial al instante y cuenta para su nivel como una compra en línea. «Deshacer» lo resta si hubo un error.</p>
+    </div>
+  </section>
+  <p class="pd-summary mono" id="pd-summary"></p>
+  <div class="pd-tools">
+    <label class="finder pd-finder">
+      <span class="mono">Buscar</span>
+      <input id="pd-search" type="search" placeholder="referencia, cliente, correo, celular, ciudad, guía o pieza…" autocomplete="off" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </label>
+    <label class="pd-sort mono">
+      <span>Ordenar</span>
+      <select id="pd-sort">
+        <option value="recientes">Más recientes</option>
+        <option value="antiguos">Más antiguos</option>
+        <option value="mayor">Mayor total</option>
+        <option value="menor">Menor total</option>
+      </select>
+    </label>
+  </div>
+  <div class="chips adm-switch" role="group" aria-label="Filtrar pedidos">
+    <button class="chip" type="button" data-pd-filter="despachar" aria-pressed="true">Por despachar <sup data-pd-n="despachar">0</sup></button>
+    <button class="chip" type="button" data-pd-filter="pagados" aria-pressed="false">Pagados <sup data-pd-n="pagados">0</sup></button>
+    <button class="chip" type="button" data-pd-filter="pendientes" aria-pressed="false">Esperando pago <sup data-pd-n="pendientes">0</sup></button>
+    <button class="chip" type="button" data-pd-filter="fallidos" aria-pressed="false">Rechazados <sup data-pd-n="fallidos">0</sup></button>
+  </div>
+  <p class="pd-found mono" id="pd-found" hidden></p>
+  <ol class="ords pds" id="pd-list"></ol>
+  <p class="list-status mono muted" id="pd-status" role="status"></p>
+  <nav class="pager mono pd-pager" id="pd-pager" aria-label="Páginas de pedidos" hidden></nav>
+</section>
+
+<section class="adm-page adm-view" id="v-buzon" data-view="buzon" hidden aria-labelledby="bz-title">
+  <header class="adm-page__head">
+    <div>
+      <p class="adm-kicker mono">Lo que llega desde la tienda</p>
+      <h1 class="adm-title" id="bz-title">Buzón</h1>
+    </div>
+    <button class="btn btn--ghost" type="button" id="bz-refresh">Actualizar</button>
+  </header>
+  <div class="chips adm-switch" role="group" aria-label="Bandeja">
+    <button class="chip" type="button" data-box="orders" aria-pressed="true">Fichas de encargo <sup id="bz-n-orders">0</sup></button>
+    <button class="chip" type="button" data-box="subscribers" aria-pressed="false">Suscriptores <sup id="bz-n-subs">0</sup></button>
+  </div>
+  <div id="bz-orders"><ol class="ords" id="bz-order-list"></ol></div>
+  <div id="bz-subs" hidden>
+    <div class="bz-tools">
+      <button class="btn btn--ghost" type="button" id="bz-copy">Copiar correos</button>
+      <button class="btn btn--ghost" type="button" id="bz-csv">Descargar CSV</button>
+    </div>
+    <ol class="subs" id="bz-sub-list"></ol>
+  </div>
+  <p class="list-status mono muted" id="bz-status" role="status"></p>
+</section>
+
+<!-- ============ EQUIPO ============ -->
+<section class="adm-page adm-view" id="v-equipo" data-view="equipo" hidden aria-labelledby="tm-title">
+  <header class="adm-page__head">
+    <div>
+      <p class="adm-kicker mono">Quién puede entrar a la curaduría</p>
+      <h1 class="adm-title" id="tm-title">Equipo</h1>
+    </div>
+  </header>
+  <div class="team">
+    <form class="ficha team__invite" id="tm-form" novalidate>
+      <div class="ficha__head mono"><span>Dar acceso a la curaduría</span><span>ficha A</span></div>
+      <label class="ficha__field">
+        <span class="mono">Correo</span>
+        <input name="email" type="email" placeholder="persona@correo.com" autocomplete="off" required>
+      </label>
+      <label class="ficha__field">
+        <span class="mono">Nombre · opcional</span>
+        <input name="name" type="text" maxlength="60" placeholder="cómo le llamamos" autocomplete="off">
+      </label>
+      <p class="ficha__note mono">Si ya tiene credencial, entra al instante con su contraseña. Si no, se crea una invitación con un enlace para que elija su contraseña (un solo uso, 7 días).</p>
+      <div class="ficha__foot">
+        <button class="btn" type="submit">Dar acceso →</button>
+        <p class="form-msg mono" id="tm-msg" role="status" aria-live="polite"></p>
+      </div>
+      <div class="invite" id="tm-invite" hidden>
+        <p class="mono invite__label" id="tm-invite-label">Enlace de activación</p>
+        <div class="invite__row">
+          <input class="mono" id="tm-link" type="text" readonly aria-labelledby="tm-invite-label">
+          <button class="btn btn--lime" type="button" id="tm-copy">Copiar</button>
+        </div>
+        <p class="mono muted" id="tm-invite-note"></p>
+      </div>
+    </form>
+    <div class="team__members">
+      <h2 class="team__title">Con acceso<sup class="mono" id="tm-count">—</sup></h2>
+      <ol class="mems" id="tm-list"></ol>
+      <p class="mono muted team__foot" id="tm-foot"></p>
+    </div>
+  </div>
+</section>
+
+<div class="statusbar mono" id="statusbar" role="status" aria-live="polite"><span class="statusbar__tag px" id="statusbar-tag">ok</span><span id="statusbar-msg"></span></div>
+
+</body>
+</html>

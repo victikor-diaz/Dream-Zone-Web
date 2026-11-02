@@ -1,0 +1,7 @@
+node_modules/
+# llaves y tokens: solo en .env (local) y en Vercel, nunca en git
+.env*
+!.env.example
+.vercel/
+npm-debug.log*
+.DS_Store

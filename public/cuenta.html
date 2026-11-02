@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credencial — Dream Zone</title>
+  <meta name="description" content="Entra a Dream Zone, crea tu credencial de jugador o recupera tu contraseña.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Silkscreen:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css?v=20261028">
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="js/progress.js?v=20261018" defer></script>
+  <script src="js/cuenta.js?v=20261018" defer></script>
+</head>
+<body>
+
+<a class="skip" href="#panel">Saltar al formulario</a>
+
+<header class="bar">
+  <a class="bar__brand" href="/" aria-label="Dream Zone, volver al archivo">
+    <img src="assets/img/dz-logo-dark-360.png" width="360" height="195" alt="">
+    <span>Dream Zone</span>
+  </a>
+  <p class="bar__issue">Credencial de jugador</p>
+  <a class="bar__admin mono" href="/admin" data-admin-link hidden>✦ <span>Curaduría</span></a>
+  <a class="bar__back link mono" href="/">← Volver al archivo</a>
+</header>
+
+<main class="acct">
+  <section class="acct__intro" aria-labelledby="acct-title">
+    <p class="acct__kicker mono" id="acct-kicker">Credencial de jugador</p>
+    <h1 class="acct__title" id="acct-title">Entra al <em class="echo" data-text="archivo">archivo</em>.</h1>
+    <p class="acct__lead" id="acct-lead">Cargando tu credencial…</p>
+
+    <div class="idcard" id="idcard" data-lv="1" aria-hidden="true">
+      <div class="idcard__top">
+        <img src="assets/img/dz-logo-dark-360.png" width="360" height="195" alt="">
+        <span class="mono">Credencial de jugador</span>
+      </div>
+      <div class="idcard__who">
+        <span class="avatar idcard__avatar" id="card-avatar" data-lv="1">?</span>
+        <p class="idcard__name is-placeholder" id="card-name">Tu nombre aquí</p>
+        <p class="idcard__real mono" id="card-real" hidden></p>
+      </div>
+      <div class="idcard__xp mono"><span class="idcard__bar" id="card-bar" style="--v:0"><i></i></span><span id="card-xp"><b>0</b> / 500 XP</span></div>
+      <dl class="idcard__meta mono">
+        <div><dt>Nivel</dt><dd><span class="lv" id="card-level" data-lv="1">Lv 01 · Novato</span></dd></div>
+        <div><dt>Alta</dt><dd id="card-since">—</dd></div>
+        <div><dt>ID</dt><dd id="card-id">DZ-····</dd></div>
+        <div id="card-role" hidden><dt>Rol</dt><dd class="idcard__role">Curaduría</dd></div>
+      </dl>
+      <span class="idcard__seal"></span>
+      <span class="idcard__holo"></span>
+      <span class="idcard__frame"></span>
+    </div>
+
+    <!-- Logros de la credencial (solo con sesión) -->
+    <section class="trophies" id="trophies" aria-labelledby="tr-title" hidden>
+      <header class="trophies__head">
+        <h2 class="acct__sub" id="tr-title">Logros</h2>
+        <p class="mono muted"><b class="px" id="tr-count">00/12</b> desbloqueados</p>
+      </header>
+      <p class="trophies__next mono" id="tr-next"></p>
+      <ol class="trophies__list" id="tr-list" role="list"></ol>
+    </section>
+  </section>
+
+  <section class="acct__panel" id="panel" aria-label="Acceso">
+    <nav class="tabs" id="tabs" aria-label="Elegir acceso">
+      <a class="tab" href="#entrar" data-view-link="entrar">Entrar</a>
+      <a class="tab" href="#registro" data-view-link="registro">Crear credencial</a>
+    </nav>
+
+    <!-- Entrar -->
+    <form class="ficha ficha--acct" id="f-entrar" data-view="entrar" novalidate>
+      <div class="ficha__head mono"><span>Inicio de sesión</span><span>ficha 01</span></div>
+      <label class="ficha__field">
+        <span class="mono">Correo</span>
+        <input name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
+      </label>
+      <div class="ficha__field">
+        <label class="mono" for="login-pass">Contraseña</label>
+        <div class="ficha__pw">
+          <input id="login-pass" name="password" type="password" autocomplete="current-password" required>
+          <button class="mono" type="button" data-reveal="login-pass" aria-pressed="false">ver</button>
+        </div>
+      </div>
+      <div class="ficha__foot">
+        <button class="btn" type="submit">Entrar →</button>
+        <p class="form-msg mono" role="status" aria-live="polite"></p>
+      </div>
+      <p class="ficha__alt mono"><a class="link" href="#recuperar">¿Olvidaste tu contraseña?</a><a class="link" href="#registro">Crear credencial →</a></p>
+    </form>
+
+    <!-- Registro -->
+    <form class="ficha ficha--acct" id="f-registro" data-view="registro" novalidate hidden>
+      <div class="ficha__head mono"><span>Nueva credencial</span><span>ficha 02</span></div>
+      <label class="ficha__field">
+        <span class="mono">Nombre de jugador</span>
+        <input name="name" type="text" autocomplete="name" placeholder="cómo te llamamos" maxlength="60" required>
+      </label>
+      <label class="ficha__field">
+        <span class="mono">Correo</span>
+        <input name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
+      </label>
+      <div class="ficha__field">
+        <label class="mono" for="reg-pass">Contraseña · mínimo 8 caracteres</label>
+        <div class="ficha__pw">
+          <input id="reg-pass" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="reg-strength">
+          <button class="mono" type="button" data-reveal="reg-pass" aria-pressed="false">ver</button>
+        </div>
+        <p class="strength mono" id="reg-strength" data-strength-for="reg-pass" aria-live="polite"></p>
+      </div>
+      <label class="consent"><input type="checkbox" name="consent" required> <span>Leí y acepto la <a class="link" href="/privacidad" target="_blank" rel="noopener">política de tratamiento de datos</a>, y declaro que soy mayor de edad o que tengo la autorización de mi representante legal.</span></label>
+      <div class="ficha__foot">
+        <button class="btn" type="submit">Crear credencial →</button>
+        <p class="form-msg mono" role="status" aria-live="polite"></p>
+      </div>
+      <p class="ficha__alt mono"><span class="muted">¿Ya tienes una?</span><a class="link" href="#entrar">Entrar →</a></p>
+    </form>
+
+    <!-- Recuperar: 1) llega un código de 6 dígitos al correo · 2) código + contraseña nueva, en la misma ficha -->
+    <form class="ficha ficha--acct" id="f-recuperar" data-view="recuperar" data-step="email" novalidate hidden>
+      <div class="ficha__head mono"><span>Recuperar acceso</span><span>ficha 03</span></div>
+      <label class="ficha__field">
+        <span class="mono">Correo de tu credencial</span>
+        <input name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
+      </label>
+      <p class="ficha__note mono" data-step-note>Te mandamos un código de 6 dígitos. Vence en 15 minutos.</p>
+      <div data-code-step hidden>
+        <label class="ficha__field">
+          <span class="mono">Código del correo</span>
+          <input class="ficha__code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="000 000" maxlength="7" spellcheck="false">
+        </label>
+        <div class="ficha__field">
+          <label class="mono" for="rec-pass">Contraseña nueva · mínimo 8 caracteres</label>
+          <div class="ficha__pw">
+            <input id="rec-pass" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" aria-describedby="rec-strength">
+            <button class="mono" type="button" data-reveal="rec-pass" aria-pressed="false">ver</button>
+          </div>
+          <p class="strength mono" id="rec-strength" data-strength-for="rec-pass" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="ficha__foot">
+        <button class="btn" type="submit">Enviar código →</button>
+        <p class="form-msg mono" role="status" aria-live="polite"></p>
+      </div>
+      <p class="ficha__alt mono">
+        <a class="link" href="#entrar">← Volver a entrar</a>
+        <span class="ficha__links" data-code-links hidden><button class="link mono" type="button" data-resend>Reenviar código</button><button class="link mono" type="button" data-other-email>Usar otro correo</button></span>
+      </p>
+    </form>
+
+    <!-- Restablecer (enlaces de recuperación de antes del código; ya no se mandan) -->
+    <form class="ficha ficha--acct" id="f-restablecer" data-view="restablecer" novalidate hidden>
+      <div class="ficha__head mono"><span>Contraseña nueva</span><span>ficha 04</span></div>
+      <div class="ficha__field">
+        <label class="mono" for="reset-pass">Contraseña nueva · mínimo 8 caracteres</label>
+        <div class="ficha__pw">
+          <input id="reset-pass" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="reset-strength">
+          <button class="mono" type="button" data-reveal="reset-pass" aria-pressed="false">ver</button>
+        </div>
+        <p class="strength mono" id="reset-strength" data-strength-for="reset-pass" aria-live="polite"></p>
+      </div>
+      <div class="ficha__foot">
+        <button class="btn" type="submit">Guardar y entrar →</button>
+        <p class="form-msg mono" role="status" aria-live="polite"></p>
+      </div>
+      <p class="ficha__alt mono"><a class="link" href="#recuperar">Pedir un código</a></p>
+    </form>
+
+    <!-- Activar (invitación de la curaduría) -->
+    <form class="ficha ficha--acct" id="f-activar" data-view="activar" novalidate hidden>
+      <div class="ficha__head mono"><span>Activar credencial</span><span>ficha 06</span></div>
+      <label class="ficha__field">
+        <span class="mono">¿Cómo te llamamos?</span>
+        <input name="name" type="text" autocomplete="name" placeholder="tu nombre" maxlength="60" required>
+      </label>
+      <div class="ficha__field">
+        <label class="mono" for="act-pass">Contraseña · mínimo 8 caracteres</label>
+        <div class="ficha__pw">
+          <input id="act-pass" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="act-strength">
+          <button class="mono" type="button" data-reveal="act-pass" aria-pressed="false">ver</button>
+        </div>
+        <p class="strength mono" id="act-strength" data-strength-for="act-pass" aria-live="polite"></p>
+      </div>
+      <p class="ficha__note mono">El enlace sirve una sola vez y vence 7 días después de la invitación.</p>
+      <div class="ficha__foot">
+        <button class="btn" type="submit">Activar y entrar →</button>
+        <p class="form-msg mono" role="status" aria-live="polite"></p>
+      </div>
+      <p class="ficha__alt mono"><a class="link" href="#recuperar">¿El enlace venció? Recupera el acceso con un código</a></p>
+    </form>
+
+    <!-- Perfil -->
+    <div class="profile" id="v-perfil" data-view="perfil" hidden>
+      <dl class="profile__specs mono">
+        <div><dt>Nombre</dt><dd id="p-name">—</dd></div>
+        <div><dt>Apodo</dt><dd id="p-nick">—</dd></div>
+        <div><dt>Correo</dt><dd id="p-email">—</dd></div>
+        <div><dt>Nivel</dt><dd><span class="lv" id="p-level" data-lv="1">Lv 01 · Novato · 0 XP</span></dd></div>
+        <div><dt>Rol</dt><dd id="p-role">—</dd></div>
+        <div><dt>En el archivo desde</dt><dd id="p-since">—</dd></div>
+      </dl>
+      <div class="profile__actions">
+        <a class="btn" href="/">Volver al archivo →</a>
+        <button class="link mono" type="button" id="logout">Cerrar sesión</button>
+      </div>
+      <p class="form-msg mono" id="profile-msg" role="status" aria-live="polite"></p>
+
+      <!-- Mis pedidos: lo pagado con Wompi y en qué va la entrega -->
+      <section class="mine" id="pedidos" aria-labelledby="mine-title">
+        <div class="mine__head">
+          <h2 class="acct__sub" id="mine-title">Mis pedidos</h2>
+          <a class="link mono" href="/#indice">Seguir comprando →</a>
+        </div>
+        <p class="mine__sum mono" id="mine-sum" hidden></p>
+        <ol class="mine__list" id="mine-list" role="list"></ol>
+        <nav class="pager mono mine__pager" id="mine-pager" aria-label="Páginas de tus pedidos" hidden></nav>
+        <p class="mono muted mine__empty" id="mine-status">&gt; cargando tus pedidos<span class="cursor" aria-hidden="true"></span></p>
+      </section>
+
+      <!-- Editar credencial: la tarjeta de la izquierda muestra los cambios mientras escribes -->
+      <form class="ficha ficha--acct" id="f-perfil" novalidate>
+        <div class="ficha__head mono"><span>Editar credencial</span><span>ficha 07</span></div>
+        <label class="ficha__field">
+          <span class="mono">Nombre</span>
+          <input name="name" type="text" autocomplete="name" maxlength="60" required>
+        </label>
+        <label class="ficha__field">
+          <span class="mono">Apodo · opcional</span>
+          <input name="nickname" type="text" autocomplete="nickname" maxlength="24" placeholder="cómo te conocen en el archivo" spellcheck="false" aria-describedby="nick-note">
+        </label>
+        <p class="ficha__note mono" id="nick-note">Va en grande en tu credencial y en la barra de la tienda. De 2 a 24 caracteres; vacío, se usa tu nombre.</p>
+        <fieldset class="swatches">
+          <legend class="mono">Color del cuadro</legend>
+          <div class="swatches__grid" id="swatches"></div>
+        </fieldset>
+        <div class="ficha__foot">
+          <button class="btn" type="submit">Guardar credencial</button>
+          <button class="btn btn--ghost" type="button" id="perfil-undo" disabled>Deshacer</button>
+          <p class="form-msg mono" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <!-- Cambiar contraseña: con la actual o, si no la recuerdas, con un código que llega a tu correo (sin cerrar sesión) -->
+      <form class="ficha ficha--acct" id="f-password" data-mode="current" novalidate>
+        <div class="ficha__head mono"><span>Cambiar contraseña</span><span>ficha 05</span></div>
+        <div class="ficha__field" data-pw-mode="current">
+          <label class="mono" for="cur-pass">Contraseña actual</label>
+          <div class="ficha__pw">
+            <input id="cur-pass" name="current" type="password" autocomplete="current-password">
+            <button class="mono" type="button" data-reveal="cur-pass" aria-pressed="false">ver</button>
+          </div>
+        </div>
+        <label class="ficha__field" data-pw-mode="code" hidden>
+          <span class="mono">Código del correo</span>
+          <input class="ficha__code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="000 000" maxlength="7" spellcheck="false">
+        </label>
+        <div class="ficha__field">
+          <label class="mono" for="new-pass">Contraseña nueva</label>
+          <div class="ficha__pw">
+            <input id="new-pass" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="new-strength">
+            <button class="mono" type="button" data-reveal="new-pass" aria-pressed="false">ver</button>
+          </div>
+          <p class="strength mono" id="new-strength" data-strength-for="new-pass" aria-live="polite"></p>
+        </div>
+        <p class="ficha__note mono" data-pw-note>Al guardar se cierran tus sesiones en otros dispositivos.</p>
+        <div class="ficha__foot">
+          <button class="btn btn--ghost" type="submit">Guardar contraseña</button>
+          <p class="form-msg mono" role="status" aria-live="polite"></p>
+        </div>
+        <p class="ficha__alt mono">
+          <button class="link mono" type="button" data-pw-forgot>¿No recuerdas la actual? Cámbiala con un código</button>
+          <span class="ficha__links" data-pw-mode="code" hidden><button class="link mono" type="button" data-pw-resend>Reenviar código</button><button class="link mono" type="button" data-pw-current>Usar mi contraseña actual</button></span>
+        </p>
+      </form>
+
+      <!-- Borrar la credencial: tres verificaciones (contraseña, código al correo y escribir BORRAR) -->
+      <form class="ficha ficha--acct ficha--danger" id="f-borrar" data-stage="closed" novalidate>
+        <div class="ficha__head mono"><span>Borrar credencial</span><span>ficha 08</span></div>
+        <p class="ficha__note mono">Se borran tu credencial, tus logros, tu XP y tu nivel, y se cierra tu sesión en todos lados. No se puede deshacer. Tus pedidos se guardan, ya sin tu cuenta, porque la ley contable lo pide.</p>
+        <div class="ficha__foot" data-del-closed>
+          <button class="btn btn--ghost btn--danger" type="button" data-del-open>Quiero borrar mi credencial</button>
+        </div>
+        <div data-del-open-panel hidden>
+          <ol class="del" role="list">
+            <li class="del__step" data-del-step="password">
+              <span class="del__n mono" aria-hidden="true">01</span>
+              <div class="ficha__field">
+                <label class="mono" for="del-pass">Tu contraseña</label>
+                <div class="ficha__pw">
+                  <input id="del-pass" name="password" type="password" autocomplete="current-password" maxlength="128">
+                  <button class="mono" type="button" data-reveal="del-pass" aria-pressed="false">ver</button>
+                </div>
+              </div>
+            </li>
+            <li class="del__step" data-del-step="code" hidden>
+              <span class="del__n mono" aria-hidden="true">02</span>
+              <label class="ficha__field">
+                <span class="mono">Código que llegó a tu correo</span>
+                <input class="ficha__code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="000 000" maxlength="7" spellcheck="false">
+              </label>
+            </li>
+            <li class="del__step" data-del-step="code" hidden>
+              <span class="del__n mono" aria-hidden="true">03</span>
+              <label class="ficha__field">
+                <span class="mono">Escribe BORRAR para confirmar</span>
+                <input name="phrase" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="BORRAR">
+              </label>
+            </li>
+          </ol>
+          <label class="del__check mono" data-del-step="code" hidden><input type="checkbox" name="unsubscribe" checked> También dejar de recibir los avisos de drops</label>
+          <p class="ficha__note mono" data-del-note>Paso 1 de 3: confirma que eres tú. Después te llega un código al correo.</p>
+          <div class="ficha__foot">
+            <button class="btn btn--danger" type="submit">Enviar código →</button>
+            <button class="link mono" type="button" data-del-resend hidden>Reenviar código</button>
+            <button class="link mono" type="button" data-del-cancel>Cancelar</button>
+            <p class="form-msg mono" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

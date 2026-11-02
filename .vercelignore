@@ -1,0 +1,8 @@
+# Lo que NO se sube a Vercel. Las claves van en Vercel › Settings › Environment Variables, nunca en archivos.
+.env
+.env.*
+!.env.example
+node_modules/
+.vercel/
+*.log
+.DS_Store

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacidad — Dream Zone</title>
+  <meta name="description" content="Política de tratamiento de datos personales de Dream Zone: qué datos recogemos, usamos y guardamos, para qué, con quién los compartimos, cuánto tiempo los conservamos y cómo ejercer tus derechos (Ley 1581 de 2012 y Decreto 1074 de 2015).">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Silkscreen:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css?v=20261028">
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="js/privacidad.js?v=20261023" defer></script>
+</head>
+<body>
+
+<a class="skip" href="#politica">Saltar a la política</a>
+
+<header class="bar">
+  <a class="bar__brand" href="/" aria-label="Dream Zone, volver al archivo">
+    <img src="assets/img/dz-logo-dark-360.png" width="360" height="195" alt="">
+    <span>Dream Zone</span>
+  </a>
+  <p class="bar__issue">Política de datos</p>
+  <a class="bar__back link mono" href="/">← Volver al archivo</a>
+</header>
+
+<!--
+  Política de tratamiento de datos personales: Ley 1581 de 2012 y Decreto 1074 de 2015 (que compila el 1377 de 2013).
+  Versión 1.0, revisada con las observaciones del abogado de la tienda. Si cambia el texto, sube la versión aquí y
+  POLICY_VERSION en lib/privacy.js (las autorizaciones guardadas dicen qué versión se aceptó).
+  Responsable, documento, correo, teléfono y proveedor de facturación los edita la curaduría en Página › Política
+  de privacidad (js/privacidad.js los trae de /api/site); domicilio y dirección salen de «Visítanos». Lo de aquí
+  rige si la API no responde.
+-->
+<main class="legal" id="main">
+  <aside class="legal__side">
+    <div class="legal__sticky">
+      <p class="acct__kicker mono">Política de tratamiento de datos</p>
+      <h1 class="legal__title">Tus datos, bajo <em class="echo" data-text="llave">llave</em>.</h1>
+
+      <dl class="legal__file mono" aria-label="Responsable del tratamiento">
+        <div><dt>Responsable</dt><dd data-p="owner">Dream Zone</dd></div>
+        <div data-p-row="idDoc" hidden><dt>NIT / CC</dt><dd data-p="idDoc"></dd></div>
+        <div><dt>Establecimiento</dt><dd>Dream Zone</dd></div>
+        <div><dt>Domicilio</dt><dd data-p="city">Bogotá, Colombia</dd></div>
+        <div><dt>Dirección</dt><dd data-p="address">Cra. 7 #23-65</dd></div>
+        <div><dt>Correo</dt><dd><a class="link" data-p="email" data-p-href="email" href="mailto:dreamzone0611@gmail.com">dreamzone0611@gmail.com</a></dd></div>
+        <div><dt>Teléfono</dt><dd data-p="phone">Aún no contamos con línea telefónica</dd></div>
+        <div><dt>Atiende</dt><dd>Área de servicio al cliente</dd></div>
+        <div><dt>Versión</dt><dd>1.0 · vigente desde el 23 de octubre de 2026</dd></div>
+      </dl>
+
+      <nav class="legal__toc mono" aria-label="Secciones de la política">
+        <ol role="list">
+          <li><a href="#p-01"><span>01</span>Responsable del tratamiento</a></li>
+          <li><a href="#p-02"><span>02</span>Qué datos recogemos</a></li>
+          <li><a href="#p-03"><span>03</span>Con quién los compartimos</a></li>
+          <li><a href="#p-04"><span>04</span>Cuánto tiempo los conservamos</a></li>
+          <li><a href="#p-05"><span>05</span>Tus derechos como titular</a></li>
+          <li><a href="#p-06"><span>06</span>Consultas y reclamos</a></li>
+          <li><a href="#p-07"><span>07</span>Autorización</a></li>
+          <li><a href="#p-08"><span>08</span>Seguridad e incidentes</a></li>
+          <li><a href="#p-09"><span>09</span>Cambios a esta política</a></li>
+        </ol>
+      </nav>
+    </div>
+  </aside>
+
+  <article class="legal__body" id="politica" aria-labelledby="p-lead">
+    <p class="legal__lead" id="p-lead">Esta política explica qué datos personales recogemos, usamos y guardamos en Dream Zone, para qué, con quién los compartimos, cuánto tiempo los conservamos y cómo puedes conocerlos, actualizarlos, rectificarlos o pedir que los suprimamos. Sigue la Ley 1581 de 2012 de protección de datos personales y el Decreto 1074 de 2015, que compila y reproduce el Decreto 1377 de 2013.</p>
+
+    <section class="legal__sec" id="p-01" aria-labelledby="p-01-t">
+      <p class="legal__n mono" aria-hidden="true">§ 01</p>
+      <div>
+        <h2 id="p-01-t">Quién es responsable del tratamiento de tus datos</h2>
+        <p>El responsable del tratamiento de tus datos personales es <strong data-p="owner">Dream Zone</strong><span data-p-row="idDoc" hidden>, identificado con <span data-p="idDoc"></span></span>, titular del establecimiento de comercio Dream Zone, con domicilio en <span data-p="city">Bogotá, Colombia</span> y dirección en <span data-p="address">Cra. 7 #23-65</span>. En esta política, «Dream Zone», «la tienda» y «nosotros» se refieren a ese responsable.</p>
+        <p>El tratamiento es todo lo que hacemos con tus datos: recogerlos, almacenarlos, usarlos, consultarlos, actualizarlos, compartirlos con los encargados y responsables de la cláusula 3 y suprimirlos.</p>
+        <p>El <strong>área de servicio al cliente</strong> de Dream Zone atiende las consultas, reclamos y solicitudes sobre tus datos en <a class="link" data-p="email" data-p-href="email" href="mailto:dreamzone0611@gmail.com">dreamzone0611@gmail.com</a>, y los resuelve en los plazos de la <a class="link" href="#p-06">cláusula 6</a>.</p>
+      </div>
+    </section>
+
+    <section class="legal__sec" id="p-02" aria-labelledby="p-02-t">
+      <p class="legal__n mono" aria-hidden="true">§ 02</p>
+      <div>
+        <h2 id="p-02-t">Qué datos recogemos y para qué</h2>
+        <p>Recogemos solo los datos que hacen falta para cada cosa que haces en la tienda, ya sea porque nos los das o porque se generan al usar el sitio:</p>
+        <ul class="legal__list" role="list">
+          <li><b>Tu credencial</b><span>Nombre de jugador, correo, contraseña (guardada cifrada: nadie puede leerla, ni la curaduría), apodo, color del avatar, logros, XP, nivel, piezas vistas en el archivo y partidas del arcade. <em>Para</em> que puedas entrar a tu cuenta, guardar tu progreso y recibir los beneficios de tu nivel.</span></li>
+          <li><b>Tus pedidos</b><span>Nombre, correo, celular, tipo y número de documento, dirección de entrega, municipio y departamento, la nota opcional, las piezas que compraste y el valor pagado, el método de pago, el estado y la referencia de la transacción y, si es envío, la transportadora y el número de guía. <em>Para</em> procesar el pago, preparar y entregar el pedido, avisarte por correo cómo va, atender garantías, cambios, devoluciones y reclamos del consumidor, y cumplir obligaciones contables y tributarias, incluyendo la emisión de la factura electrónica de venta.</span></li>
+          <li><b>Fichas de encargo</b><span>La pieza que buscas y tu número de WhatsApp. <em>Para</em> cotizarte y escribirte por WhatsApp sobre ese encargo.</span></li>
+          <li><b>Lista de drops</b><span>Tu correo. La suscripción es voluntaria y distinta de la compra: crear una credencial o hacer un pedido no te inscribe. <em>Para</em> avisarte por correo cuando sale un drop. Te das de baja cuando quieras con el enlace que trae cada aviso o escribiéndonos al correo de servicio al cliente.</span></li>
+          <li><b>Datos técnicos</b><span>Al pedir cada página, tu navegador envía tu dirección IP, la fecha y hora, la página pedida y el tipo de navegador. Vercel los anota en sus registros técnicos; nosotros usamos la IP solo para limitar intentos repetidos (por ejemplo, de inicio de sesión) y guardamos el tipo de navegador junto a cada sesión abierta. <em>Para</em> que la página funcione y protegerla de abusos.</span></li>
+          <li><b>Cookies</b><span>Usamos solo dos cookies propias (de la tienda) y estrictamente necesarias: sin ellas no puedes entrar a tu cuenta ni guardar tu carrito. Ambas son persistentes: <code>dz_session</code> guarda tu sesión y dura 30 días desde que entras, sin renovarse; <code>dz_cart</code> guarda tu carrito (carrito) y dura 30 días desde la última vez que lo cambias. No usamos cookies de publicidad ni de analítica. Wompi puede usar sus propias cookies en su página de pago, regidas por su política de cookies y no por esta.</span></li>
+          <li><b>Almacenamiento del navegador</b><span>Aparte de las cookies, el almacenamiento local de tu navegador (<i>local storage</i>) guarda en tu dispositivo, sin enviarlos a nuestros servidores: tus logros y piezas vistas mientras no tienes credencial, el juego y la moneda del día del arcade, tus búsquedas recientes y, solo si marcas «Recordar estos datos» al pagar, tus datos de entrega (nombre, correo, celular, documento, dirección, municipio y departamento). El almacenamiento de sesión (<i>session storage</i>) recuerda avisos que ya viste y se borra al cerrar la pestaña. Esos datos se quedan solo en ese dispositivo.</span></li>
+          <li><b>En la sala física</b><span>Si compras en la tienda física, solo recogemos lo que pide la factura electrónica de venta: nombre, tipo y número de documento y correo para enviártela (si prefieres no darlos y la norma lo permite, la factura sale a nombre de «consumidor final»), y tu WhatsApp si nos dejas un encargo. Si tienes credencial y nos das su correo, le sumamos el XP de tu compra: registramos el valor, la fecha y una nota opcional (como el número de factura) y te enviamos un correo de gracias. Son los mismos datos de la página, con las mismas finalidades.</span></li>
+        </ul>
+        <p>También recibimos datos de terceros: Wompi nos informa el estado, la referencia y el método de pago de tu transacción (ver <a class="link" href="#p-03">cláusula 3</a>).</p>
+        <p>No pedimos datos sensibles tal y como los define el artículo 5 de la Ley 1581 de 2012, como el origen racial o étnico, la orientación política, las convicciones religiosas o filosóficas, la pertenencia a sindicatos u organizaciones sociales, los datos de salud, de vida sexual o biométricos. El número de documento se pide solo porque lo necesitan el pago, la guía del envío y la factura electrónica.</p>
+      </div>
+    </section>
+    <section class="legal__sec" id="p-03" aria-labelledby="p-03-t">
+      <p class="legal__n mono" aria-hidden="true">§ 03</p>
+      <div>
+        <h2 id="p-03-t">Con quién compartimos tus datos</h2>
+        <p>No vendemos ni alquilamos tus datos y no los usamos para publicidad de terceros. Compartimos tus datos únicamente con encargados y responsables del tratamiento que hacen posible la tienda, y cada uno recibe solo lo necesario para su tarea. La ley distingue dos casos (artículo 2.2.2.25.1.3, numerales 4 y 5, del Decreto 1074 de 2015): entregarle datos a un encargado, que los trata por cuenta nuestra, es una <strong>transmisión</strong>; entregárselos a otro responsable, que los trata por su cuenta, es una <strong>transferencia</strong>.</p>
+
+        <h3 class="legal__sub mono">Encargados · transmisión</h3>
+        <p>Estas empresas actúan como encargados y tratan tus datos por nuestra cuenta, solo para lo que les pedimos y conforme a esta política:</p>
+        <ul class="legal__list" role="list">
+          <li><b>MongoDB Atlas</b><span>MongoDB, Inc. Aloja la base de datos de la tienda: credenciales, pedidos, fichas de encargo y la lista de drops. <small class="legal__where">Estados Unidos (Virginia)</small></span></li>
+          <li><b>Vercel</b><span>Vercel Inc. Aloja la página y ejecuta su servidor; con cada visita anota registros técnicos (IP, fecha y hora, página pedida). <small class="legal__where">Estados Unidos, con una red que entrega la página desde el punto más cercano a ti</small></span></li>
+          <li><b>Google (Gmail)</b><span>Google LLC. Envía los correos de la tienda: códigos de acceso, confirmaciones y avisos de pedidos y avisos de drops. <small class="legal__where">Estados Unidos</small></span></li>
+          <li><b>WhatsApp</b><span>WhatsApp LLC (Meta Platforms). Por ahí te cotizamos y conversamos sobre tus encargos y pedidos, con tu número y lo que nos escribes. <small class="legal__where">Estados Unidos</small></span></li>
+          <li><b>Factura electrónica</b><span><span data-p="billing">Nuestro proveedor tecnológico de facturación electrónica</span>, habilitado por la DIAN. Genera la factura electrónica de venta con tu nombre, documento, correo y lo que compraste, y la envía a la DIAN para su validación.</span></li>
+        </ul>
+
+        <h3 class="legal__sub mono">Responsables independientes · transferencia</h3>
+        <p>Estas empresas reciben tus datos y los tratan por su cuenta, como responsables, bajo su propia política de datos. Para ejercer tus derechos sobre lo que ellas hacen, debes dirigirte a ellas (ver <a class="link" href="#p-05">cláusula 5</a>):</p>
+        <ul class="legal__list" role="list">
+          <li><b>Wompi</b><span>Pasarela de pagos del Grupo Bancolombia. Procesa tu pago: le pasamos tu nombre, correo, celular y documento para llenar su formulario; los datos de tu tarjeta, tu cuenta bancaria o tu billetera digital los escribes directamente en la página de Wompi y nunca pasan por Dream Zone. Trata tus datos conforme a su propia política. <small class="legal__where">Colombia</small></span></li>
+          <li><b>Interrapidísimo</b><span>Inter Rapidísimo S.A. Entrega los envíos: recibe tu nombre, número de documento de identidad, dirección, municipio, departamento y celular para la guía, y los trata conforme a su propia política. <small class="legal__where">Colombia</small></span></li>
+          <li><b>Google Fonts y OpenStreetMap</b><span>Google LLC y la Fundación OpenStreetMap. Tu navegador les pide directamente las tipografías de la página y el plano de la sala, así que ven tu dirección IP, como cualquier sitio que visitas, y la tratan según sus propias políticas. <small class="legal__where">Estados Unidos y Reino Unido</small></span></li>
+        </ul>
+        <p>Envia.com solo nos calcula la tarifa de Interrapidísimo para tu municipio: le enviamos el código del municipio y el peso del paquete, ningún dato personal tuyo, así que no es encargado ni responsable de tus datos.</p>
+        <p>Los servicios de las listas guardan y procesan información fuera de Colombia: MongoDB Atlas, Vercel, Google, WhatsApp y Google Fonts lo hacen en Estados Unidos, y OpenStreetMap en el Reino Unido. Al aceptar esta política autorizas de forma expresa esas transmisiones y transferencias internacionales de datos (artículo 26 de la Ley 1581 de 2012), que se hacen bajo los estándares de seguridad y confidencialidad de estos proveedores en la nube.</p>
+        <p>También podemos entregar datos a una autoridad judicial o administrativa competente, cuando los pida conforme a la ley. La DIAN recibe las facturas electrónicas de venta por mandato legal.</p>
+      </div>
+    </section>
+
+    <section class="legal__sec" id="p-04" aria-labelledby="p-04-t">
+      <p class="legal__n mono" aria-hidden="true">§ 04</p>
+      <div>
+        <h2 id="p-04-t">Cuánto tiempo conservamos tus datos</h2>
+        <p>Conservamos tus datos solo durante el tiempo razonable y necesario para las finalidades de esta política y para cumplir obligaciones legales. Cuando ese tiempo termina, los eliminamos de forma irreversible. Nuestras bases de datos están vigentes mientras Dream Zone desarrolle su actividad comercial y perduren las finalidades descritas en esta política, y cada dato se conserva únicamente durante los plazos que se indican a continuación:</p>
+        <ul class="legal__list" role="list">
+          <li><b>Credencial</b><span>Mientras la tengas. La borras tú en «<a class="link" href="/cuenta">Mi cuenta</a>» (con tu contraseña, un código que llega a tu correo y la palabra BORRAR) y se elimina de inmediato, con tu progreso y tus sesiones. Si pasan 2 años sin que entres a ella, te avisamos por correo; si no entras en los 30 días siguientes al aviso, la borramos.</span></li>
+          <li><b>Pedidos</b><span>Los datos del pedido (nombre, documento, correo, celular, dirección de entrega, piezas, valores, método y referencia del pago, transportadora y guía) se conservan durante 10 años contados desde la fecha del último documento o comprobante del pedido, como exige el artículo 60 del Código de Comercio para los libros y papeles del comerciante; ese plazo cubre también el del Estatuto Tributario. Se conservan aunque borres tu credencial, pero sin el vínculo con ella.</span></li>
+          <li><b>Fichas de encargo</b><span>Mientras cotizamos y conseguimos la pieza. Si el encargo no se concreta (por ejemplo, si no respondes a la cotización), borramos la ficha y la conversación de WhatsApp 6 meses después de la última novedad. Si se concreta y lo pagas, pasa a ser un pedido y sigue sus reglas.</span></li>
+          <li><b>Lista de drops</b><span>Hasta que te des de baja: en ese momento borramos tu correo de la lista.</span></li>
+          <li><b>Cookies</b><span><code>dz_session</code>: 30 días contados desde que entras a tu credencial; no se renueva al volver, así que pasado ese plazo tienes que entrar de nuevo, y se borra antes si cierras sesión. <code>dz_cart</code>: 30 días contados desde la última vez que cambias tu carrito, y se renueva cada vez que lo cambias. Puedes borrarlas cuando quieras desde tu navegador.</span></li>
+          <li><b>Almacenamiento del navegador</b><span>Hasta que lo borres desde tu navegador o desmarques «Recordar estos datos» al pagar; el de sesión, al cerrar la pestaña.</span></li>
+          <li><b>Registros técnicos</b><span>Los límites de intentos que usan tu IP se borran solos en máximo 1 hora, y el tipo de navegador de cada sesión se borra con ella. Los registros técnicos de Vercel (IP, fecha y hora, página pedida) que vemos nosotros se borran solos en máximo 1 día.</span></li>
+          <li><b>Compras en la sala física</b><span>Los mismos plazos que los pedidos de la página. El registro del XP que una compra en la sala sumó a tu credencial se borra con ella.</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="legal__sec" id="p-05" aria-labelledby="p-05-t">
+      <p class="legal__n mono" aria-hidden="true">§ 05</p>
+      <div>
+        <h2 id="p-05-t">Tus derechos como titular de datos</h2>
+        <p>Como titular de tus datos personales tienes los derechos que establece el artículo 8 de la Ley 1581 de 2012. Tienes derecho a:</p>
+        <ol class="legal__rights" role="list">
+          <li>Conocer, actualizar y rectificar tus datos personales frente a Dream Zone y sus encargados. Puedes ejercerlo, entre otros, frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a error, o cuyo tratamiento esté prohibido o no haya sido autorizado.</li>
+          <li>Solicitar prueba de la autorización que nos diste, salvo cuando la ley no la exija (artículo 10 de la Ley 1581 de 2012). Guardamos qué versión de esta política aceptaste y cuándo.</li>
+          <li>Ser informado por Dream Zone o sus encargados, previa solicitud, del uso que les hemos dado a tus datos.</li>
+          <li>Presentar quejas ante la Superintendencia de Industria y Comercio (SIC) por infracciones a la Ley 1581 de 2012 y a las normas que la modifiquen, adicionen o complementen, una vez hayas agotado la consulta o el reclamo ante nosotros.</li>
+          <li>Revocar la autorización y/o solicitar la supresión de tus datos cuando en el tratamiento no se respeten los principios, derechos y garantías constitucionales y legales. Puedes pedirlo en cualquier momento mediante un reclamo, y no procede cuando tengas un deber legal o contractual de permanecer en la base de datos (artículo 9 del Decreto 1377 de 2013, compilado en el Decreto 1074 de 2015), como pasa con los pedidos y la factura.</li>
+          <li>Acceder en forma gratuita a tus datos personales que hayan sido objeto de tratamiento: al menos una vez cada mes calendario, y cada vez que haya modificaciones sustanciales de esta política que motiven nuevas consultas (artículo 2.2.2.25.4.2 del Decreto 1074 de 2015).</li>
+        </ol>
+        <p>Pueden ejercer estos derechos el titular, acreditando su identidad; sus causahabientes, acreditando esa calidad; su representante o apoderado, acreditando la representación o el apoderamiento; y otros terceros autorizados por el titular o por la ley (Ley 1581 de 2012 y artículo 2.2.2.25.4.1 del Decreto 1074 de 2015). Los derechos de niñas, niños y adolescentes los ejercen quienes estén facultados para representarlos.</p>
+        <p>Cuando tus datos los trata otro responsable por su cuenta, como Wompi o Interrapidísimo (ver <a class="link" href="#p-03">cláusula 3</a>), debes dirigirte directamente a él para ejercer tus derechos sobre ese tratamiento. Cómo ejercerlos ante nosotros se explica en la <a class="link" href="#p-06">cláusula 6</a>.</p>
+      </div>
+    </section>
+
+    <section class="legal__sec" id="p-06" aria-labelledby="p-06-t">
+      <p class="legal__n mono" aria-hidden="true">§ 06</p>
+      <div>
+        <h2 id="p-06-t">Cómo hacer una consulta, un reclamo o ejercer tus derechos</h2>
+        <p>Recibimos consultas y reclamos solo por el canal digital: el correo <a class="link" data-p="email" data-p-href="email" href="mailto:dreamzone0611@gmail.com">dreamzone0611@gmail.com</a> del área de servicio al cliente. En la sala física no se radican, pero allí te indicamos cómo escribirnos.</p>
+        <p>Para proteger tu privacidad y verificar tu identidad, tu solicitud debe incluir tu nombre completo, tu tipo y número de documento, el correo de tu credencial (si tienes una) y el correo o la dirección donde quieres recibir la respuesta. Danos una descripción clara y precisa de los hechos que dan lugar a la consulta o al reclamo, indicando lo que necesitas (conocer, actualizar, rectificar, revocar la autorización o suprimir datos), y adjunta los documentos de soporte que quieras agregar a tu solicitud. Si la presenta otra persona por ti, debe acreditar su calidad (ver <a class="link" href="#p-05">cláusula 5</a>).</p>
+        <p>Los plazos de estos procedimientos y el contenido mínimo de las solicitudes son los que establece el Título V de la Ley 1581 de 2012 (artículos 14 y 15):</p>
+        <ul class="legal__list" role="list">
+          <li><b>Consultas</b><span>Para conocer qué datos tuyos tenemos y qué uso les damos. Las respondemos en máximo 10 días hábiles contados desde la fecha en que recibimos la consulta. Si no alcanzamos, antes de que venza ese plazo te avisamos el motivo de la demora y la fecha en que la atenderemos, que no superará los 5 días hábiles siguientes al vencimiento del primer plazo.</span></li>
+          <li><b>Reclamos</b><span>Para corregir, actualizar o suprimir datos, revocar la autorización o advertir un incumplimiento de la ley.
+            <ol class="legal__steps" role="list">
+              <li>Si el reclamo está incompleto, dentro de los 5 días hábiles siguientes a su recepción te pedimos que subsanes lo que falta. Si pasan 2 meses desde ese requerimiento sin que nos envíes la información, entendemos que desististe del reclamo.</li>
+              <li>Si no somos competentes para resolverlo (por ejemplo, si es sobre un tratamiento que hace Wompi), se lo trasladamos a quien corresponda dentro de los 2 días hábiles siguientes a su recepción y te informamos.</li>
+              <li>Dentro de los 2 días hábiles siguientes a recibir el reclamo completo, incluimos en nuestra base de datos la leyenda «reclamo en trámite» y su motivo, y la mantenemos hasta resolverlo.</li>
+              <li>Lo resolvemos en máximo 15 días hábiles contados desde el día siguiente a la recepción del reclamo completo. Si no alcanzamos, antes de que venza ese plazo te avisamos el motivo de la demora y la fecha en que lo atenderemos, que no superará los 8 días hábiles siguientes al vencimiento del primer plazo.</li>
+            </ol>
+          </span></li>
+        </ul>
+        <p>Algunas cosas las haces tú mismo, sin esperar: en «<a class="link" href="/cuenta">Mi cuenta</a>» cambias tu nombre, tu apodo y tu contraseña o borras tu credencial, y cada aviso de drops trae el enlace para darte de baja.</p>
+      </div>
+    </section>
+
+    <section class="legal__sec" id="p-07" aria-labelledby="p-07-t">
+      <p class="legal__n mono" aria-hidden="true">§ 07</p>
+      <div>
+        <h2 id="p-07-t">Autorización para el tratamiento de datos personales</h2>
+        <p>Antes de recoger tus datos te pedimos tu autorización previa, expresa e informada. La das al marcar la casilla «Leí y acepto la política de tratamiento de datos» cuando creas tu credencial, haces un pedido, envías una ficha de encargo o te suscribes a la lista de drops; sin marcarla, la tienda no recibe esos datos. Como prueba, guardamos con tus datos la versión de la política que aceptaste y la fecha y hora en que lo hiciste. En la sala física te informamos de esta política antes de pedirte datos para la factura.</p>
+        <p>Con esa autorización nos permites tratar tus datos para las finalidades de la <a class="link" href="#p-02">cláusula 2</a>, transmitirlos a los encargados y transferirlos a los responsables independientes de la <a class="link" href="#p-03">cláusula 3</a>, incluidas las transmisiones y transferencias internacionales que allí se describen.</p>
+        <h3 class="legal__sub mono">Niñas, niños y adolescentes</h3>
+        <p>La tienda está pensada para personas mayores de edad. Si eres menor de edad, solo puedes crear una credencial, hacer un pedido, enviar una ficha o suscribirte con la autorización de tu representante legal (tu madre, tu padre o quien tenga tu custodia), como exige el artículo 2.2.2.25.2.9 del Decreto 1074 de 2015. Al marcar la casilla declaras que eres mayor de edad o que cuentas con esa autorización.</p>
+        <p>Cuando tratamos datos de menores de edad, respetamos su interés superior y sus derechos fundamentales, como piden el artículo 7 de la Ley 1581 de 2012 y el Decreto 1074 de 2015, y les damos la protección reforzada que exige el artículo 44 de la Constitución Política, según el cual los derechos de los niños prevalecen sobre los derechos de los demás.</p>
+      </div>
+    </section>
+
+    <section class="legal__sec" id="p-08" aria-labelledby="p-08-t">
+      <p class="legal__n mono" aria-hidden="true">§ 08</p>
+      <div>
+        <h2 id="p-08-t">Seguridad e incidentes</h2>
+        <p>Las contraseñas se guardan cifradas, la página viaja cifrada (HTTPS), la sesión vive en una cookie que los scripts de la página no pueden leer y, en la tienda, solo la curaduría ve los pedidos.</p>
+        <p>Si llega a ocurrir un incidente de seguridad que afecte tus datos, lo reportamos a la SIC dentro de los 15 días hábiles siguientes al momento en que lo detectemos. A ti te avisamos por correo electrónico, si nos lo diste; si no tenemos tu correo, publicamos un aviso en esta página y en la sala física.</p>
+      </div>
+    </section>
+
+    <section class="legal__sec" id="p-09" aria-labelledby="p-09-t">
+      <p class="legal__n mono" aria-hidden="true">§ 09</p>
+      <div>
+        <h2 id="p-09-t">Cambios a esta política</h2>
+        <p>Podemos modificar esta política. Cada versión se publica en esta página con su número y su fecha de vigencia.</p>
+        <p>Si el cambio afecta el tratamiento (quién es el responsable, para qué usamos tus datos, con quién los compartimos o cómo autorizas), es un cambio sustancial: te lo comunicamos antes de aplicarlo o, a más tardar, al aplicarlo, por correo electrónico si nos lo diste, y con un aviso en esta página y en la sala física para quienes no nos dieron correo. Además, te pediremos una nueva autorización y, mientras no la otorgues, seguiremos usando tus datos solo para los fines que ya autorizaste bajo la versión anterior. Seguir usando la tienda o sus servicios no equivale a aceptar una nueva versión.</p>
+        <p class="legal__stamp mono">Versión 1.0 · vigente desde el 23 de octubre de 2026.</p>
+      </div>
+    </section>
+
+    <p class="legal__back"><a class="btn" href="/">Volver al archivo →</a></p>
+  </article>
+</main>
+</body>
+</html>
