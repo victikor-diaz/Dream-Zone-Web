@@ -19,7 +19,6 @@
   const KEY = params.get('k');
   const TX = params.get('id'); // Wompi lo agrega al volver
   const STORE = 'dz.pago'; // datos recordados en este navegador
-  const LAST = 'dz.pago.ultimo'; // el último pedido creado aquí, por si se cierra la pestaña de Wompi
   const POLL_MS = 3000;
   const POLL_MAX = 40; // ~2 minutos; PSE puede tardar más y entonces se ofrece consultar de nuevo
   const METHODS = {
@@ -92,6 +91,7 @@
     $('#receipt-count').textContent = count ?? `${pad(units)} ${units === 1 ? 'pieza' : 'piezas'}`;
     $('#receipt-lines').innerHTML = src.lines.length ? src.lines.map((l) => `
       <li class="receipt__line${l.problem ? ' has-problem' : ''}${l.kind === 'drop' ? ' is-drop' : ''}"${l.category ? ` data-zone="${esc(l.category)}"` : ''}>
+        ${progress.lineThumb(l)}
         <span class="receipt__name">${esc(l.name)}</span>
         <span class="receipt__amount mono">${money(l.totalCents)}</span>
         <span class="receipt__meta mono">${l.qty} × ${money(l.unitCents)}${l.includes ? ` · ${esc(l.includes.map((x) => x.name).join(' + '))}` : ''}</span>
@@ -345,46 +345,33 @@
     set('details', data.details);
   }
 
-  const readLast = () => {
-    try {
-      return JSON.parse(localStorage.getItem(LAST) ?? 'null');
-    } catch {
-      return null; // nada guardado o modo privado
-    }
-  };
-  function forgetLast(ref) {
-    try {
-      if (!ref || readLast()?.ref === ref) localStorage.removeItem(LAST);
-    } catch {
-      /* modo privado */
-    }
-  }
-
   /**
-   * Si hace poco se abrió Wompi desde aquí y ese pago sigue en proceso (PSE o Nequi tardan), lo avisa
-   * antes de pagar otra vez. Si se salió sin pagar, o el pago ya se resolvió, no dice nada.
+   * Antes de ofrecer el pago, pregunta por el último pedido abierto en Wompi desde aquí. Si ya se aprobó (se pagó y
+   * se cerró Wompi sin volver), lleva a su recibo y devuelve true. Si sigue en proceso (PSE o Nequi tardan), lo avisa
+   * antes de pagar otra vez. Si se salió sin pagar o se rechazó, no dice nada.
    */
-  async function showLast() {
-    const last = readLast();
-    if (!last) return;
-    if (!/^\/pago\.html\?ref=DZ\d{6}-[A-Z2-9]{6}&k=[\w-]+$/.test(last.path ?? '') || !(Date.now() - last.at < 86400e3)) {
-      forgetLast();
-      return;
-    }
+  async function resumeLast() {
+    const last = progress.lastPayment();
+    if (!last) return false;
     let found;
     try {
       found = await api(`/api/checkout/status?${last.path.split('?')[1]}`);
     } catch (err) {
-      if (err.status === 404) forgetLast(last.ref);
-      return;
+      if (err.status === 404) progress.forgetPayment(last.ref);
+      return false;
     }
     const { order, checked } = found;
-    if (order.status !== 'pending') {
-      forgetLast(order.reference); // ya se pagó o se rechazó: nada que recordar
-      return;
+    if (order.status === 'approved') {
+      window.location.replace(last.path);
+      return true;
     }
-    if (!order.paymentStarted || !checked) return; // salió de Wompi sin pagar: puede pagar de nuevo sin problema
-    form.insertAdjacentHTML('afterbegin', `<p class="pay__last mono">Tu pago del pedido ${esc(order.reference)} sigue en proceso con Wompi. Antes de pagar otra vez, <a class="link" href="${esc(last.path.slice(1))}">mira su estado →</a></p>`);
+    if (order.status !== 'pending') {
+      progress.forgetPayment(order.reference); // se rechazó: nada que recordar
+      return false;
+    }
+    if (!order.paymentStarted || !checked) return false; // salió de Wompi sin pagar: puede pagar de nuevo sin problema
+    form.insertAdjacentHTML('afterbegin', `<p class="pay__last mono">Tu pago del pedido ${esc(order.reference)} sigue en proceso con Wompi. Antes de pagar otra vez, <a class="link" href="${esc(last.path)}">mira su estado →</a></p>`);
+    return false;
   }
 
   /* ---------- Estados del panel ---------- */
@@ -430,7 +417,6 @@
       fillCities();
       showDelivery();
       form.hidden = false;
-      showLast();
       if (F.region.value || F.method.value === 'tienda') await loadQuote();
     } catch (err) {
       showState(`<p class="acct__kicker mono">Algo falló</p><p class="acct__sub">No pudimos cargar tu pedido.</p>
@@ -493,11 +479,7 @@
     say('');
     try {
       const { url, reference, statusPath } = await api('/api/checkout/create', { method: 'POST', body });
-      try {
-        localStorage.setItem(LAST, JSON.stringify({ ref: reference, path: statusPath, at: Date.now() }));
-      } catch {
-        /* modo privado */
-      }
+      progress.rememberPayment(reference, statusPath);
       goBtn.textContent = 'Abriendo Wompi…';
       say(`Pedido ${reference} listo. Te llevamos a la página segura de Wompi…`, 'ok', 'form');
       window.location.assign(url);
@@ -616,7 +598,7 @@
         const { order, checked } = await api(`/api/checkout/status?${q}`);
         const view = order.status === 'pending' && !order.paymentStarted && checked ? 'unpaid' : order.status;
         renderResult(order, view);
-        if (order.status !== 'pending') forgetLast(order.reference);
+        if (order.status !== 'pending') progress.forgetPayment(order.reference);
         if (view === 'pending' && tries < POLL_MAX) setTimeout(check, POLL_MS);
       } catch (err) {
         if (first || err.status === 404) {
@@ -648,6 +630,6 @@
     progress.setUser(user);
     site = (await api('/api/site').catch(() => null))?.site ?? null; // el mensaje de gracias lo edita la curaduría
     if (REF) await followOrder();
-    else await startCheckout();
+    else if (!(await resumeLast())) await startCheckout();
   })();
 })();

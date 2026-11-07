@@ -2,7 +2,7 @@ import { route, readJson, HttpError, CACHE } from '../lib/http.js';
 import { getDb } from '../lib/mongodb.js';
 import { slug, int } from '../lib/validate.js';
 import { readCartId, ensureCartId, pruneCart } from '../lib/cart-session.js';
-import { COLLECTIONS, DROP_CODE_RE, isPurchasable, hasSizes, sizeStock } from '../lib/catalog.js';
+import { COLLECTIONS, DROP_CODE_RE, coverUrl, isPurchasable, hasSizes, sizeStock } from '../lib/catalog.js';
 
 const MAX_QTY_PER_ITEM = 5;
 const MAX_LINES = 30;
@@ -47,7 +47,7 @@ async function summarize(db, cart) {
   drops.forEach((d) => (Array.isArray(d.items) ? d.items : []).forEach((s) => slugs.add(s)));
   const products = await db
     .collection(COLLECTIONS.products)
-    .find({ slug: { $in: [...slugs] } }, { projection: { _id: 0, slug: 1, name: 1, priceCents: 1, status: 1, stock: 1, sizes: 1 } })
+    .find({ slug: { $in: [...slugs] } }, { projection: { _id: 0, slug: 1, name: 1, priceCents: 1, status: 1, stock: 1, sizes: 1, images: 1 } })
     .toArray();
   const bySlug = new Map(products.map((p) => [p.slug, p]));
   const now = Date.now();
@@ -61,7 +61,7 @@ async function summarize(db, cart) {
       const p = bySlug.get(i.slug);
       if (!p) return [];
       const out = outOf(p, i.size ?? null);
-      return [{ id: p.slug, ...(i.size ? { size: i.size } : {}), name: withSize(p.name, i.size), qty: i.qty, priceCents: p.priceCents, ...(out ? { out } : {}) }];
+      return [{ id: p.slug, ...(i.size ? { size: i.size } : {}), name: withSize(p.name, i.size), image: coverUrl(p), qty: i.qty, priceCents: p.priceCents, ...(out ? { out } : {}) }];
     }
     const d = drops.get(i.drop);
     if (!d || !Array.isArray(d.items)) return [];
@@ -73,7 +73,7 @@ async function summarize(db, cart) {
       name: dropName(d),
       qty: i.qty,
       priceCents: d.priceCents,
-      includes: d.items.filter((s) => bySlug.has(s)).map((s) => ({ id: s, name: bySlug.get(s).name })),
+      includes: d.items.filter((s) => bySlug.has(s)).map((s) => ({ id: s, name: bySlug.get(s).name, image: coverUrl(bySlug.get(s)) })),
       closed: !d.active || d.endsAt.getTime() <= now,
       ...(out ? { out } : {}),
     }];

@@ -3,6 +3,12 @@
   "framework": null,
   "outputDirectory": "public",
   "cleanUrls": true,
+  "crons": [
+    {
+      "path": "/api/checkout/conciliar",
+      "schedule": "*/5 * * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/(css|js)/(.*)",

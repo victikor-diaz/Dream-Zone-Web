@@ -1,6 +1,6 @@
 /*
- * Concilia con Wompi los pedidos que siguen «pending»: por si un aviso de Wompi se perdió y quien compró no
- * volvió a pago.html (p. ej. un pedido creado desde localhost, que no regresa de Wompi).
+ * Concilia con Wompi los pedidos que siguen «pending», a mano. En producción lo hace solo /api/checkout/conciliar
+ * cada 5 minutos con los de la última semana: esto queda para revisar y para pedidos más viejos.
  *   npm run pago:conciliar                          → muestra qué dice Wompi de cada pedido pendiente (no cambia nada)
  *   npm run pago:conciliar -- --aplicar             → aplica lo que dice Wompi (aprobado, rechazado…) y manda los correos
  *   npm run pago:conciliar -- DZ261019-ABC123 [--aplicar] → solo ese pedido
@@ -10,7 +10,7 @@
 import { getDb, closeDb } from '../lib/mongodb.js';
 import { COLLECTIONS } from '../lib/catalog.js';
 import { applyTransaction } from '../lib/orders.js';
-import { wompiConfig, transactionsFor } from '../lib/wompi.js';
+import { wompiConfig, transactionFor } from '../lib/wompi.js';
 import { mailPaidOrder } from '../lib/order-mail.js';
 import { mailEnabled } from '../lib/mailer.js';
 
@@ -36,7 +36,7 @@ async function main() {
   }
   console.log(`> Wompi ${cfg.sandbox ? 'sandbox' : 'PRODUCCIÓN'} · ${apply ? 'aplicando cambios' : 'solo consulta (agrega --aplicar para guardar)'}`);
   for (const order of list) {
-    const [tx] = await transactionsFor(cfg, order.reference); // la más reciente
+    const tx = await transactionFor(cfg, order.reference); // la aprobada o, si no hay, la más reciente
     const head = `  ${order.reference} · ${money(order.totalCents)} · ${order.customer.email} · ${when(order.createdAt)}`;
     if (!tx) {
       console.log(`${head} · sin transacción en Wompi (no pagó)`);
