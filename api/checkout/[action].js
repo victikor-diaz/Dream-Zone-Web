@@ -1,3 +1,4 @@
+import { timingSafeEqual } from 'node:crypto';
 import { waitUntil } from '@vercel/functions';
 import { route, readJson, HttpError, CACHE, assertSameOrigin, clientIp, queryString } from '../../lib/http.js';
 import { getDb } from '../../lib/mongodb.js';
@@ -7,10 +8,10 @@ import { COLLECTIONS } from '../../lib/catalog.js';
 import { limit } from '../../lib/rate-limit.js';
 import { appUrl, mailEnabled } from '../../lib/mailer.js';
 import { mailPaidOrder } from '../../lib/order-mail.js';
-import { wompiConfig, checkoutUrl, getTransaction, findTransaction, transactionsFor, verifyEvent } from '../../lib/wompi.js';
+import { wompiConfig, checkoutUrl, getTransaction, findTransaction, transactionFor, verifyEvent } from '../../lib/wompi.js';
 import { CITY_NAMES } from '../../lib/shipping.js';
 import {
-  DEPARTMENTS, ID_TYPES, checkoutInput, quoteCart, createOrder, keyMatches, applyTransaction, toPublicOrder, shippingOptionId,
+  DEPARTMENTS, ID_TYPES, OPEN_STATUSES, checkoutInput, quoteCart, createOrder, keyMatches, applyTransaction, toPublicOrder, shippingOptionId,
 } from '../../lib/orders.js';
 
 /*
@@ -21,10 +22,19 @@ import {
  *   POST /api/checkout/create { customer, delivery, notes } → crea el pedido (exige sesión) y devuelve el enlace a Wompi
  *   GET  /api/checkout/status?ref=&k=&id=                 → estado del pedido (consulta a Wompi si sigue pendiente) y `checked`
  *   GET  /api/checkout/mine?page=                         → lo pagado por la credencial con sesión, de 5 en 5, y sus totales
+ *   GET  /api/checkout/conciliar                          → Vercel Cron (vercel.json): pregunta a Wompi por los pedidos abiertos
  *   POST /api/checkout/wompi                              → aviso de Wompi (URL de eventos del panel de Wompi)
+ *
+ * Un pago aprobado se confirma por cualquiera de estos caminos, sin depender de que quien compra vuelva a la tienda
+ * (en el celular Wompi no siempre ofrece volver): el aviso de Wompi, al instante; la conciliación, cada 5 minutos; y
+ * la consulta a Wompi al abrir el recibo o «Mis pedidos».
  */
 
 const MIN = 60 * 1000;
+const OPEN_DAYS = 7; // hasta cuándo se le sigue preguntando a Wompi por un pedido sin resolver
+const SWEEP_MAX = 40; // pedidos por pasada de la conciliación
+const SWEEP_MS = 30 * 1000; // lo que queda sin revisar sigue en la siguiente pasada
+const MINE_MAX = 3; // pedidos abiertos que se revisan al abrir «Mis pedidos»
 
 /** Las líneas del carrito de esta cookie, sin las de piezas o drops que ya se borraron (`removed`: cuántas salieron). */
 async function cartItems(db, req) {
@@ -48,20 +58,39 @@ function confirmByMail(req, order) {
   })());
 }
 
+/** Pedidos reales sin resolver y recientes, el más nuevo primero (los simulados no existen en Wompi). */
+const openOrders = (db, match, max) => db.collection(COLLECTIONS.orders)
+  .find({
+    ...match,
+    status: { $in: OPEN_STATUSES },
+    simulated: { $ne: true },
+    demo: { $ne: true },
+    createdAt: { $gte: new Date(Date.now() - OPEN_DAYS * 24 * 60 * MIN) },
+  })
+  .sort({ createdAt: -1 })
+  .limit(max)
+  .toArray();
+
+/** Vercel Cron manda `Authorization: Bearer $CRON_SECRET`; sin ese secreto configurado nadie entra. */
+function assertCron(req) {
+  const secret = process.env.CRON_SECRET;
+  const got = Buffer.from(String(req.headers.authorization ?? ''));
+  const want = Buffer.from(`Bearer ${secret}`);
+  if (!secret || got.length !== want.length || !timingSafeEqual(got, want)) throw new HttpError(401, 'No autorizado.');
+}
+
 /**
- * Pregunta a Wompi por un pedido pendiente: por el id de la transacción o, sin él, por su referencia.
+ * Pregunta a Wompi por un pedido sin resolver: por el id de la transacción y por su referencia, porque un
+ * rechazo puede tener un reintento aprobado después.
  * `checked` dice si Wompi respondió de verdad: solo entonces «sin transacción» significa «no ha pagado».
  */
 async function refresh(db, cfg, order, txId) {
-  if (order.status !== 'pending') return { order, checked: true };
+  if (!OPEN_STATUSES.includes(order.status)) return { order, checked: true };
   if (!cfg) return { order, checked: false };
   try {
-    let tx = null;
-    if (txId) {
-      tx = await getTransaction(cfg, txId);
-      if (tx && tx.reference !== order.reference) tx = null; // un id de otra compra no cambia este pedido
-    }
-    if (!tx) [tx] = await transactionsFor(cfg, order.reference);
+    let tx = txId ? await getTransaction(cfg, txId) : null;
+    if (tx?.reference !== order.reference) tx = null; // un id de otra compra no cambia este pedido
+    if (tx?.status !== 'APPROVED') tx = (await transactionFor(cfg, order.reference)) ?? tx;
     const current = tx ? (await applyTransaction(db, tx)) ?? order : order;
     return { order: current, checked: Boolean(tx || cfg.privateKey) }; // sin llave privada no se puede buscar por referencia
   } catch (err) {
@@ -116,8 +145,35 @@ const ACTIONS = {
       res.status(200).json({ order: toPublicOrder(current), checked });
     },
 
+    /** Por si el aviso de Wompi se perdió y quien pagó no volvió: aquí se aprueba, se avisa y se descuenta igual. */
+    async conciliar({ req, res, db }) {
+      assertCron(req);
+      const cfg = wompiConfig();
+      if (!cfg?.privateKey) throw new HttpError(503, 'Faltan las llaves de Wompi.');
+      const deadline = Date.now() + SWEEP_MS;
+      const list = await openOrders(db, {}, SWEEP_MAX);
+      let checked = 0;
+      let approved = 0;
+      for (const order of list) {
+        if (Date.now() > deadline) break;
+        const { order: current } = await refresh(db, cfg, order);
+        checked += 1;
+        if (current.status === 'approved') {
+          approved += 1;
+          console.log(`[checkout] conciliado con Wompi (el aviso no llegó): ${current.reference}`);
+        }
+        confirmByMail(req, current);
+      }
+      res.status(200).json({ open: list.length, checked, approved });
+    },
+
     async mine({ req, res, db }) {
       const { user } = await requireUser(db, req);
+      const cfg = wompiConfig();
+      // lo que se acaba de pagar aparece aquí aunque ni el aviso ni la conciliación hayan pasado todavía
+      const open = cfg ? await openOrders(db, { userId: user._id }, MINE_MAX) : [];
+      const fresh = await Promise.all(open.map((order) => refresh(db, cfg, order)));
+      fresh.forEach(({ order }) => confirmByMail(req, order));
       const orders = db.collection(COLLECTIONS.orders);
       const filter = { userId: user._id, status: 'approved' }; // «Mis pedidos» es lo pagado
       const [totals] = await orders.aggregate([

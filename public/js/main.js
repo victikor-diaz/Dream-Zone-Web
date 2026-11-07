@@ -1094,6 +1094,7 @@
           <button type="button" data-step="1" aria-label="Una unidad más de ${esc(i.name)}"${i.qty >= MAX_QTY ? ' disabled' : ''}>+</button>`;
         return `
           <li${cls ? ` class="${cls}"` : ''} data-kind="${i.drop ? 'drop' : 'product'}" data-id="${esc(i.drop ?? i.id)}" data-size="${esc(i.size ?? '')}" data-qty="${i.qty}">
+            ${progress.lineThumb(i)}
             <span class="cart__item-name">${esc(i.name)}</span>
             <span class="cart__item-total mono">${i.closed ? 'drop cerrado' : out || money(i.qty * i.priceCents)}</span>
             <span class="cart__item-meta mono">${i.qty} × ${money(i.priceCents)}${i.drop ? ` · ${esc(i.includes.map((x) => x.name).join(' + '))}` : ''}</span>
@@ -1140,6 +1141,19 @@
       return cart;
     } catch {
       return null; // el contador se queda en 0; no bloquea la página
+    }
+  }
+
+  /** Quien cerró Wompi después de pagar vuelve aquí, no al recibo: si su pago ya se aprobó, se le lleva a verlo. */
+  async function resumePayment() {
+    const last = PREVIEW ? null : progress.lastPayment();
+    if (!last) return;
+    try {
+      const { order } = await api(`/api/checkout/status?${last.path.split('?')[1]}`);
+      if (order.status === 'approved') window.location.replace(last.path);
+      else if (order.status !== 'pending') progress.forgetPayment(order.reference);
+    } catch {
+      /* la tienda no depende de esto: lo resuelven el aviso de Wompi y la conciliación */
     }
   }
 
@@ -3337,5 +3351,6 @@
   }
   loadCart();
   loadAccount();
+  resumePayment();
   if (new Date().getHours() < 5) setTimeout(() => unlock('buho'), 1500);
 })();

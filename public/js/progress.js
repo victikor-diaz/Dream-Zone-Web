@@ -399,6 +399,64 @@ window.DZProgress = (() => {
     return true;
   }
 
+  /* ---------- Miniaturas de las líneas del carrito y del pedido ---------- */
+  const MOSAIC_CELLS = 4;
+  const EMPTY_CELL = '<span class="lthumb__cell"></span>';
+  const photoOf = (item) => (item.image
+    ? `<img src="${esc(item.image)}" alt="" loading="lazy" decoding="async">`
+    : `<span class="lthumb__none">${esc(Array.from(item.name ?? '·')[0])}</span>`); // pedidos viejos o pieza sin foto
+
+  /**
+   * La foto de la pieza. Un drop muestra sus piezas en un mosaico de 2×2 celdas cuadradas, para que cada foto se vea
+   * entera: dos piezas van en diagonal y, si no caben, la última celda dice cuántas faltan.
+   */
+  function lineThumb(line) {
+    const pieces = line.includes ?? [];
+    if (!pieces.length) return `<span class="lthumb" aria-hidden="true">${photoOf(line)}</span>`;
+    const more = pieces.length > MOSAIC_CELLS ? pieces.length - MOSAIC_CELLS + 1 : 0;
+    const cells = (more ? pieces.slice(0, MOSAIC_CELLS - 1) : pieces).map((p) => `<span class="lthumb__cell">${photoOf(p)}</span>`);
+    if (more) cells.push(`<span class="lthumb__cell lthumb__more">+${more}</span>`);
+    if (cells.length === 2) cells.splice(1, 0, EMPTY_CELL, EMPTY_CELL);
+    while (cells.length < MOSAIC_CELLS) cells.push(EMPTY_CELL);
+    return `<span class="lthumb lthumb--mosaic" aria-hidden="true">${cells.join('')}</span>`;
+  }
+
+  /* ---------- El último pago abierto desde este navegador ----------
+     Quien paga en el celular suele cerrar Wompi sin volver al recibo. Con esto, al regresar a la tienda o a /pago
+     se pregunta por ese pedido antes de dejarle pagar otra vez. */
+  const LAST_PAYMENT = 'dz.pago.ultimo';
+  const LAST_PAYMENT_RE = /^\/pago(?:\.html)?\?ref=DZ\d{6}-[A-Z2-9]{6}&k=[\w-]+$/;
+  const LAST_PAYMENT_MS = 24 * 60 * 60 * 1000;
+
+  function forgetPayment(reference) {
+    try {
+      const last = JSON.parse(localStorage.getItem(LAST_PAYMENT) ?? 'null');
+      if (!reference || last?.ref === reference) localStorage.removeItem(LAST_PAYMENT);
+    } catch {
+      /* modo privado */
+    }
+  }
+  function rememberPayment(ref, path) {
+    try {
+      localStorage.setItem(LAST_PAYMENT, JSON.stringify({ ref, path, at: Date.now() }));
+    } catch {
+      /* modo privado */
+    }
+  }
+  /** { ref, path, at } del último pedido abierto en Wompi, o null si no hay o ya pasó un día. */
+  function lastPayment() {
+    let last = null;
+    try {
+      last = JSON.parse(localStorage.getItem(LAST_PAYMENT) ?? 'null');
+    } catch {
+      return null; // nada guardado o modo privado
+    }
+    if (!last) return null;
+    if (LAST_PAYMENT_RE.test(last.path ?? '') && Date.now() - last.at < LAST_PAYMENT_MS) return last;
+    forgetPayment();
+    return null;
+  }
+
   /** Olvida los logros y las vistas guardados en este navegador (los de la credencial no se tocan). */
   function clearLocal() {
     writeLocal(new Map());
@@ -566,5 +624,9 @@ window.DZProgress = (() => {
     toastLevel,
     takeUser,
     gainXp,
+    lineThumb,
+    lastPayment,
+    rememberPayment,
+    forgetPayment,
   };
 })();
