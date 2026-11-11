@@ -836,6 +836,19 @@ svg:not(.ill):not(.sprite) {
 /* el de TikTok ya trae una copia desplazada en cian y rojo, como la sombra del logo DZ */
 .social[data-net="tiktok"]:is(:hover, :focus-visible) .social__logo { filter: drop-shadow(-1.5px -1px 0 #25F4EE) drop-shadow(1.5px 1px 0 #FE2C55); }
 .colophon__legal { font-size: 12px; }
+/* Base del pie: lo legal a la izquierda y, al otro lado, quién hizo el sitio (en móvil baja a su propia fila) */
+.colophon__base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 32px; }
+.credit {
+  display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font-size: 12px; color: var(--ink-3);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--line-2);
+  transition: color 120ms, text-decoration-color 120ms;
+}
+.credit__mark { display: block; flex: none; height: 22px; width: calc(22px * 670 / 580); color: var(--ink); overflow: visible; }
+.credit__mark--vk { height: 16px; width: calc(16px * 1464 / 629); }
+/* los sellos van en blanco; al pasar (o con el teclado) se encienden con sus colores de marca */
+.credit__lit { opacity: 0; transition: opacity 180ms var(--ease); }
+.credit:is(:hover, :focus-visible) { color: var(--ink); text-decoration-color: currentColor; }
+.credit:is(:hover, :focus-visible) .credit__lit { opacity: 1; }
 
 /* ---------------------------------------------------------------- carrito */
 .cart { position: fixed; inset: 0; z-index: 150; }

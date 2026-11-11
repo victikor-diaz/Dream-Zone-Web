@@ -81,7 +81,7 @@
     if (ship.free === 'mitico') return [label, '<span class="receipt__free">Gratis · beneficio Mítico</span>'];
     if (ship.free === 'promo') return [label, '<span class="receipt__free">Gratis</span>'];
     if (ship.cents == null) {
-      return ['Envío', ship.blocker ? 'sin cotizar' : ship.need === 'region' ? 'elige el departamento' : 'escribe tu municipio'];
+      return ['Envío', ship.blocker ? 'sin cotizar' : ship.need === 'region' ? 'elige el departamento' : 'elige tu municipio'];
     }
     return [label, money(ship.cents)];
   }
@@ -325,7 +325,6 @@
         address: F.address.value.trim(),
         details: F.details.value.trim(),
       },
-      notes: F.notes.value.trim(),
       consent: F.consent.checked,
     };
   }

@@ -176,7 +176,6 @@ async function demoReceipts(db, mailRaw, countRaw) {
       perks: quote.perks,
       customer: { name: user.name, email: user.email, phone: '3001234567', idType: 'CC', idNumber: '1020304050' },
       delivery,
-      notes: '',
       lines: quote.lines.map(({ problem, ...l }) => l),
       subtotalCents: quote.subtotalCents,
       discountCents: quote.discountCents,

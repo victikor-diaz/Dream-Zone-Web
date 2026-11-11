@@ -19,7 +19,7 @@ import {
  *   GET  /api/checkout/quote?method=envio|tienda&region=&city=&option= → cotización del carrito (precios, nivel,
  *                                                          envío con las opciones de transportadora, total)
  *   GET  /api/checkout/places                             → los municipios de cada departamento (lista oficial del DANE)
- *   POST /api/checkout/create { customer, delivery, notes } → crea el pedido (exige sesión) y devuelve el enlace a Wompi
+ *   POST /api/checkout/create { customer, delivery, consent } → crea el pedido (exige sesión) y devuelve el enlace a Wompi
  *   GET  /api/checkout/status?ref=&k=&id=                 → estado del pedido (consulta a Wompi si sigue pendiente) y `checked`
  *   GET  /api/checkout/mine?page=                         → lo pagado por la credencial con sesión, de 5 en 5, y sus totales
  *   GET  /api/checkout/conciliar                          → Vercel Cron (vercel.json): pregunta a Wompi por los pedidos abiertos
